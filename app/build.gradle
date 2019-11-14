@@ -9,7 +9,7 @@ android {
     aaptOptions.useNewCruncher = false
 
     defaultConfig {
-        applicationId "com.fangzuo.assist.xuth"
+        applicationId "com.fangzuo.assist.xuthing"
         minSdkVersion 15
         targetSdkVersion 26
         versionCode 3
