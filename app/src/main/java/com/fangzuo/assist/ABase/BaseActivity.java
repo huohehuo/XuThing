@@ -13,8 +13,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.device.ScanDevice;
-import android.device.ScanManager;
-import android.device.scanner.configuration.PropertyID;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -172,35 +170,6 @@ public abstract class BaseActivity extends FragmentActivity {
 //            OnReceive(barcodeStr);
 //        }
 //    };
-
-
-//    //UBX
-    private ScanManager mScanManager;
-    private BroadcastReceiver mScanDataReceiverUBX;
-    private void initUBXScan() {
-        // TODO Auto-generated method stub
-        try{
-            mScanManager = new ScanManager();
-            mScanManager.openScanner();
-            mScanManager.switchOutputMode(0);
-            SoundPool soundpool = new SoundPool(1, AudioManager.STREAM_NOTIFICATION, 100);
-            int soundid = soundpool.load("/etc/Scan_new. ", 1);
-            Log.e("OnResume","OnResume");
-            IntentFilter filter = new IntentFilter();
-            int[] idbuf = new int[]{PropertyID.WEDGE_INTENT_ACTION_NAME, PropertyID.WEDGE_INTENT_DATA_STRING_TAG};
-            String[] value_buf = mScanManager.getParameterString(idbuf);
-            if(value_buf != null && value_buf[0] != null && !value_buf[0].equals("")) {
-                filter.addAction(value_buf[0]);
-            } else {
-                filter.addAction(ScanManager.ACTION_DECODE);
-            }
-
-            registerReceiver(mScanDataReceiverUBX, filter);
-        }catch (RuntimeException stub){
-            Lg.e("初始化扫描器失败");
-        }
-
-    }
 
     //M80s
     public static final String ACTION_START_DECODE = "com.mobilead.tools.action.scan_start";
@@ -401,23 +370,6 @@ protected void onResume() {
                 FilterXB.addAction(SCN_CUST_ACTION_SCODE);
                 registerReceiver(mScanDataReceiverForXB, FilterXB);
                 break;
-            case 10://优博讯");
-                if (null==mScanDataReceiverUBX){
-                    mScanDataReceiverUBX = new BroadcastReceiver() {
-                        @Override
-                        public void onReceive(Context context, Intent intent) {
-                            byte[] barcode = intent.getByteArrayExtra(ScanManager.DECODE_DATA_TAG);
-                            int barcodelen = intent.getIntExtra(ScanManager.BARCODE_LENGTH_TAG, 0);
-                            byte temp = intent.getByteExtra(ScanManager.BARCODE_TYPE_TAG, (byte) 0);
-                            Log.i("debug", "----codetype--" + temp);
-                            barcodeStr = new String(barcode, 0, barcodelen);
-                            OnReceive(barcodeStr);
-
-                        }
-                    };
-                }
-                initUBXScan();
-                break;
 
         }
     }catch (Exception e){
@@ -455,7 +407,6 @@ protected void onResume() {
             if (App.PDA_Choose==5 && null!=mScanDataReceiverForXDL)unregisterReceiver(mScanDataReceiverForXDL);
             if (App.PDA_Choose==7 && null!=mScanDataReceiverForM80s)unregisterReceiver(mScanDataReceiverForM80s);
             if (App.PDA_Choose==8 && null!=mScanDataReceiverForXB)unregisterReceiver(mScanDataReceiverForXB);
-            if (App.PDA_Choose==10 && null!=mScanDataReceiverUBX)unregisterReceiver(mScanDataReceiverUBX);
 //            if (mScanDataReceiver != null ||
 //                    mScanDataReceiverForG02A != null||
 //                    mScanDataReceiverFor5000 != null||

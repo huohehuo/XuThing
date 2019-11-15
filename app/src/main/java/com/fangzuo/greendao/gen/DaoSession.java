@@ -17,6 +17,7 @@ import com.fangzuo.assist.Dao.Employee;
 import com.fangzuo.assist.Dao.GetGoodsDepartment;
 import com.fangzuo.assist.Dao.InStorageNum;
 import com.fangzuo.assist.Dao.InStoreType;
+import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.Dao.PayType;
 import com.fangzuo.assist.Dao.PDMain;
 import com.fangzuo.assist.Dao.PDSub;
@@ -44,6 +45,7 @@ import com.fangzuo.greendao.gen.EmployeeDao;
 import com.fangzuo.greendao.gen.GetGoodsDepartmentDao;
 import com.fangzuo.greendao.gen.InStorageNumDao;
 import com.fangzuo.greendao.gen.InStoreTypeDao;
+import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.fangzuo.greendao.gen.PayTypeDao;
 import com.fangzuo.greendao.gen.PDMainDao;
 import com.fangzuo.greendao.gen.PDSubDao;
@@ -80,6 +82,7 @@ public class DaoSession extends AbstractDaoSession {
     private final DaoConfig getGoodsDepartmentDaoConfig;
     private final DaoConfig inStorageNumDaoConfig;
     private final DaoConfig inStoreTypeDaoConfig;
+    private final DaoConfig noteBeanDaoConfig;
     private final DaoConfig payTypeDaoConfig;
     private final DaoConfig pDMainDaoConfig;
     private final DaoConfig pDSubDaoConfig;
@@ -107,6 +110,7 @@ public class DaoSession extends AbstractDaoSession {
     private final GetGoodsDepartmentDao getGoodsDepartmentDao;
     private final InStorageNumDao inStorageNumDao;
     private final InStoreTypeDao inStoreTypeDao;
+    private final NoteBeanDao noteBeanDao;
     private final PayTypeDao payTypeDao;
     private final PDMainDao pDMainDao;
     private final PDSubDao pDSubDao;
@@ -155,6 +159,9 @@ public class DaoSession extends AbstractDaoSession {
 
         inStoreTypeDaoConfig = daoConfigMap.get(InStoreTypeDao.class).clone();
         inStoreTypeDaoConfig.initIdentityScope(type);
+
+        noteBeanDaoConfig = daoConfigMap.get(NoteBeanDao.class).clone();
+        noteBeanDaoConfig.initIdentityScope(type);
 
         payTypeDaoConfig = daoConfigMap.get(PayTypeDao.class).clone();
         payTypeDaoConfig.initIdentityScope(type);
@@ -216,6 +223,7 @@ public class DaoSession extends AbstractDaoSession {
         getGoodsDepartmentDao = new GetGoodsDepartmentDao(getGoodsDepartmentDaoConfig, this);
         inStorageNumDao = new InStorageNumDao(inStorageNumDaoConfig, this);
         inStoreTypeDao = new InStoreTypeDao(inStoreTypeDaoConfig, this);
+        noteBeanDao = new NoteBeanDao(noteBeanDaoConfig, this);
         payTypeDao = new PayTypeDao(payTypeDaoConfig, this);
         pDMainDao = new PDMainDao(pDMainDaoConfig, this);
         pDSubDao = new PDSubDao(pDSubDaoConfig, this);
@@ -243,6 +251,7 @@ public class DaoSession extends AbstractDaoSession {
         registerDao(GetGoodsDepartment.class, getGoodsDepartmentDao);
         registerDao(InStorageNum.class, inStorageNumDao);
         registerDao(InStoreType.class, inStoreTypeDao);
+        registerDao(NoteBean.class, noteBeanDao);
         registerDao(PayType.class, payTypeDao);
         registerDao(PDMain.class, pDMainDao);
         registerDao(PDSub.class, pDSubDao);
@@ -272,6 +281,7 @@ public class DaoSession extends AbstractDaoSession {
         getGoodsDepartmentDaoConfig.clearIdentityScope();
         inStorageNumDaoConfig.clearIdentityScope();
         inStoreTypeDaoConfig.clearIdentityScope();
+        noteBeanDaoConfig.clearIdentityScope();
         payTypeDaoConfig.clearIdentityScope();
         pDMainDaoConfig.clearIdentityScope();
         pDSubDaoConfig.clearIdentityScope();
@@ -325,6 +335,10 @@ public class DaoSession extends AbstractDaoSession {
 
     public InStoreTypeDao getInStoreTypeDao() {
         return inStoreTypeDao;
+    }
+
+    public NoteBeanDao getNoteBeanDao() {
+        return noteBeanDao;
     }
 
     public PayTypeDao getPayTypeDao() {

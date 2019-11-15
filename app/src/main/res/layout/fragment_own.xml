@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="180dp">
+        <ImageView
+            android:id="@+id/iv_book"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/com"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <TextView
+            tools:text="本地数量"
+            android:id="@+id/tv_num"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:layout_below="@+id/iv_book"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+    <include layout="@layout/line_heng"/>
+
+
+</LinearLayout>
