@@ -28,6 +28,7 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         public final static Property Nname = new Property(1, String.class, "Nname", false, "NNAME");
         public final static Property Ntime = new Property(2, String.class, "Ntime", false, "NTIME");
         public final static Property NDetail = new Property(3, String.class, "NDetail", false, "NDETAIL");
+        public final static Property FCreateTime = new Property(4, String.class, "FCreateTime", false, "FCREATE_TIME");
     }
 
 
@@ -46,7 +47,8 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
                 "\"NNAME\" TEXT," + // 1: Nname
                 "\"NTIME\" TEXT," + // 2: Ntime
-                "\"NDETAIL\" TEXT);"); // 3: NDetail
+                "\"NDETAIL\" TEXT," + // 3: NDetail
+                "\"FCREATE_TIME\" TEXT);"); // 4: FCreateTime
     }
 
     /** Drops the underlying database table. */
@@ -78,6 +80,11 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         if (NDetail != null) {
             stmt.bindString(4, NDetail);
         }
+ 
+        String FCreateTime = entity.getFCreateTime();
+        if (FCreateTime != null) {
+            stmt.bindString(5, FCreateTime);
+        }
     }
 
     @Override
@@ -103,6 +110,11 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         if (NDetail != null) {
             stmt.bindString(4, NDetail);
         }
+ 
+        String FCreateTime = entity.getFCreateTime();
+        if (FCreateTime != null) {
+            stmt.bindString(5, FCreateTime);
+        }
     }
 
     @Override
@@ -116,7 +128,8 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // Nname
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // Ntime
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3) // NDetail
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NDetail
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4) // FCreateTime
         );
         return entity;
     }
@@ -127,6 +140,7 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         entity.setNname(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setNtime(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setNDetail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setFCreateTime(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
      }
     
     @Override

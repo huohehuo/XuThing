@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/white"
     android:orientation="vertical"
-    tools:context="com.fangzuo.assist.Activity.MenuActivity">
+    tools:context="com.fangzuo.assist.UI.Activity.MenuActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/ll1"

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao'
 //apply plugin: 'android-apt'
 android {
-    compileSdkVersion 26
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
 
     aaptOptions.cruncherEnabled = false
@@ -41,7 +41,7 @@ android {
 }
 
 greendao {
-    schemaVersion 9
+    schemaVersion 12
     daoPackage 'com.fangzuo.greendao.gen'
     targetGenDir 'src/main/java'
 }

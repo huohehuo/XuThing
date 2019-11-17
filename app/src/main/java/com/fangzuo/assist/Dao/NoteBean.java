@@ -15,18 +15,21 @@ public class NoteBean {
     public String Nname;
     public String Ntime;
     public String NDetail;
+    public String FCreateTime;
 
     public NoteBean(String Nname, String Ntime) {
         this.Nname = Nname;
         this.Ntime = Ntime;
     }
 
-    @Generated(hash = 1102487115)
-    public NoteBean(Long id, String Nname, String Ntime, String NDetail) {
+    @Generated(hash = 1274114053)
+    public NoteBean(Long id, String Nname, String Ntime, String NDetail,
+            String FCreateTime) {
         this.id = id;
         this.Nname = Nname;
         this.Ntime = Ntime;
         this.NDetail = NDetail;
+        this.FCreateTime = FCreateTime;
     }
 
     @Generated(hash = 451626881)
@@ -57,6 +60,14 @@ public class NoteBean {
 
     public void setNDetail(String NDetail) {
         this.NDetail = NDetail;
+    }
+
+    public String getFCreateTime() {
+        return this.FCreateTime;
+    }
+
+    public void setFCreateTime(String FCreateTime) {
+        this.FCreateTime = FCreateTime;
     }
 
 }

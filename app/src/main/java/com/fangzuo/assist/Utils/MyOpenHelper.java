@@ -6,7 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.greendao.gen.DaoMaster;
+import com.fangzuo.greendao.gen.NoteBeanDao;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
@@ -39,7 +41,7 @@ public class MyOpenHelper extends DaoMaster.DevOpenHelper {
         onCreate(db);
         需要自己定制升级
         */
-       migrate(db);
+       migrate(db, NoteBeanDao.class);
     }
 
     /**

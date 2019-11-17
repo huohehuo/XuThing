@@ -1,11 +1,10 @@
-package com.fangzuo.assist.Activity;
+package com.fangzuo.assist.UI.Activity;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,9 +13,8 @@ import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseActivity;
 import com.fangzuo.assist.Adapter.MenuFragmentAdapter;
-import com.fangzuo.assist.Fragment.HomeFragment;
-import com.fangzuo.assist.Fragment.OwnFragment;
-import com.fangzuo.assist.Fragment.SettingFragment;
+import com.fangzuo.assist.UI.Fragment.HomeFragment;
+import com.fangzuo.assist.UI.Fragment.OwnFragment;
 import com.fangzuo.assist.R;
 import com.fangzuo.greendao.gen.DaoSession;
 

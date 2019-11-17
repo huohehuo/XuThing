@@ -1,4 +1,4 @@
-package com.fangzuo.assist.Fragment;
+package com.fangzuo.assist.UI.Fragment;
 
 
 import android.app.AlertDialog;
@@ -23,6 +23,7 @@ import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
 import com.fangzuo.assist.Beans.SettingList;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.UI.Activity.ShowNoteActivity;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
@@ -89,6 +90,7 @@ public class HomeFragment extends BaseFragment {
             public void onItemClick(int position) {
                 NoteBean thisNo = adapter.getAllData().get(position);
                 Lg.e("点击",thisNo);
+                ShowNoteActivity.start(mContext,thisNo.id+"");
 
             }
         });

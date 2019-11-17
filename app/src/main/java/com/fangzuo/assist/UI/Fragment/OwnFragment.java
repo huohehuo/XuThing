@@ -1,4 +1,4 @@
-package com.fangzuo.assist.Fragment;
+package com.fangzuo.assist.UI.Fragment;
 
 
 import android.os.Bundle;
