@@ -12,46 +12,55 @@ public class NoteBean {
 
     @Id(autoincrement = true)
     public Long id;
-    public String Nname;
-    public String Ntime;
-    public String NDetail;
-    public String FCreateTime;
+    public String NTitle;//标题
+    public String Ntime;//时间
+    public String NDetail;//日志问价按
+    public int NMoodLocInt;//
+//    public byte[] NPic;
+    public String NCreateTime;
 
-    public NoteBean(String Nname, String Ntime) {
-        this.Nname = Nname;
+    public NoteBean(String NTitle, String Ntime) {
+        this.NTitle = NTitle;
         this.Ntime = Ntime;
     }
 
-    @Generated(hash = 1274114053)
-    public NoteBean(Long id, String Nname, String Ntime, String NDetail,
-            String FCreateTime) {
+    @Generated(hash = 1462593919)
+    public NoteBean(Long id, String NTitle, String Ntime, String NDetail,
+            int NMoodLocInt, String NCreateTime) {
         this.id = id;
-        this.Nname = Nname;
+        this.NTitle = NTitle;
         this.Ntime = Ntime;
         this.NDetail = NDetail;
-        this.FCreateTime = FCreateTime;
+        this.NMoodLocInt = NMoodLocInt;
+        this.NCreateTime = NCreateTime;
     }
 
     @Generated(hash = 451626881)
     public NoteBean() {
     }
-    public String getNname() {
-        return this.Nname;
-    }
-    public void setNname(String Nname) {
-        this.Nname = Nname;
-    }
-    public String getNtime() {
-        return this.Ntime;
-    }
-    public void setNtime(String Ntime) {
-        this.Ntime = Ntime;
-    }
+
     public Long getId() {
         return this.id;
     }
+
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getNTitle() {
+        return this.NTitle;
+    }
+
+    public void setNTitle(String NTitle) {
+        this.NTitle = NTitle;
+    }
+
+    public String getNtime() {
+        return this.Ntime;
+    }
+
+    public void setNtime(String Ntime) {
+        this.Ntime = Ntime;
     }
 
     public String getNDetail() {
@@ -62,12 +71,21 @@ public class NoteBean {
         this.NDetail = NDetail;
     }
 
-    public String getFCreateTime() {
-        return this.FCreateTime;
+    public int getNMoodLocInt() {
+        return this.NMoodLocInt;
     }
 
-    public void setFCreateTime(String FCreateTime) {
-        this.FCreateTime = FCreateTime;
+    public void setNMoodLocInt(int NMoodLocInt) {
+        this.NMoodLocInt = NMoodLocInt;
     }
+
+    public String getNCreateTime() {
+        return this.NCreateTime;
+    }
+
+    public void setNCreateTime(String NCreateTime) {
+        this.NCreateTime = NCreateTime;
+    }
+
 
 }

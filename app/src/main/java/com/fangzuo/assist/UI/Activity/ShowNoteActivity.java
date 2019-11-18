@@ -5,8 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fangzuo.assist.ABase.BaseActivity;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
@@ -22,6 +25,10 @@ public class ShowNoteActivity extends BaseActivity {
     TextView tvTime;
     @BindView(R.id.ed_name)
     EditText edName;
+    @BindView(R.id.iv_mood)
+    ImageView ivMood;
+    @BindView(R.id.ed_detail)
+    EditText edDetail;
     private NoteBeanDao noteBeanDao;
     private NoteBean noteBean;
     private String notId;
@@ -46,8 +53,15 @@ public class ShowNoteActivity extends BaseActivity {
         if (null == noteBean) {
             LoadingUtil.showAlter(mContext, "本地无法找到该记录", "");
         } else {
-            edName.setText(noteBean.Nname);
+            edName.setText(noteBean.NTitle);
             tvTime.setText(noteBean.Ntime);
+            edDetail.setText(noteBean.NDetail);
+            Glide.with(this)
+                    .load(noteBean.NMoodLocInt)
+//                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
+                    .into(ivMood);
         }
 
     }
@@ -59,7 +73,7 @@ public class ShowNoteActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-
+        super.onBackPressed();
 //        AlertDialog.Builder ab = new AlertDialog.Builder(mContext);
 //        ab.setTitle("确认退出");
 //        ab.setMessage("退出会自动执行完单,是否退出?");
@@ -93,7 +107,8 @@ public class ShowNoteActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_add:
                 if (!"".equals(edName.getText().toString())){
-                    noteBean.Nname = edName.getText().toString();
+                    noteBean.NTitle = edName.getText().toString();
+                    noteBean.NDetail = edDetail.getText().toString();
                     noteBean.Ntime = tvTime.getText().toString();
                     noteBeanDao.update(noteBean);
                     finish();

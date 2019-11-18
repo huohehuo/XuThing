@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">叙</string>
 
+    <string name="activity_crop_waiting_read">正在读取图片</string>
+    <string name="common_hint">提示</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="wgrkxt">外购入库下推</string>

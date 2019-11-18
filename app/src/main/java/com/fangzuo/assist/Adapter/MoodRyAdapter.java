@@ -1,23 +1,22 @@
 package com.fangzuo.assist.Adapter;
 
 import android.content.Context;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.fangzuo.assist.Beans.MoodBean;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
-import com.fangzuo.assist.Utils.CommonUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
-public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
+public class MoodRyAdapter extends RecyclerArrayAdapter<MoodBean> {
     Context context;
 
-    public HomeRyAdapter(Context context) {
+    public MoodRyAdapter(Context context) {
         super(context);
     }
 
@@ -25,34 +24,26 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
         return new MarkHolder(parent);
     }
-    class MarkHolder extends BaseViewHolder<NoteBean> {
+    class MarkHolder extends BaseViewHolder<MoodBean> {
 
-        private TextView name;
-        private TextView time;
-        private TextView detail;
+//        private TextView name;
+//        private TextView time;
         private ImageView icon;
         public MarkHolder(ViewGroup parent) {
-            super(parent, R.layout.item_home);
-            name= $(R.id.tv_name);
-            time= $(R.id.tv_time);
+            super(parent, R.layout.item_mood);
+//            name= $(R.id.tv_name);
+//            time= $(R.id.tv_time);
             icon= $(R.id.iv_icon);
-            detail= $(R.id.tv_detail);
 //            checkBox = $(R.id.view_cb);
         }
 
         @Override
-        public void setData(NoteBean data) {
+        public void setData(MoodBean data) {
             super.setData(data);
-            name.setText(data.NTitle);
-            time.setText(data.Ntime);
-            if (null==data.NDetail || "".equals(data.NDetail)){
-                detail.setVisibility(View.GONE);
-            }else{
-                detail.setText(data.NDetail);
-            }
+//            name.setText(data.Nname);
+//            time.setText(data.Ntime);
             Glide.with(getContext())
-                    .load(data.NMoodLocInt)
-//                    .load(R.drawable.happy)
+                    .load(data.MLocint)
 //                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制

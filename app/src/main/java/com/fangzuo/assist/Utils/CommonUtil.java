@@ -15,6 +15,8 @@ import android.util.Log;
 
 import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
+import com.fangzuo.assist.Beans.MoodBean;
+import com.fangzuo.assist.R;
 import com.fangzuo.assist.widget.LoadingUtil;
 import com.lidroid.xutils.HttpUtils;
 import com.lidroid.xutils.http.ResponseInfo;
@@ -183,6 +185,28 @@ Calendar cal = Calendar.getInstance();
         Lg.e("date:"+str);*/
 
         return getTime(true);
+    }
+
+    public static List<MoodBean> getMoodBeanList(){
+        List<MoodBean> list = new ArrayList<>();
+        list.add(new MoodBean("开心",R.drawable.happy,0));
+        list.add(new MoodBean("傻眼",R.drawable.shayan,1));
+        list.add(new MoodBean("酷",R.drawable.ku,2));
+        list.add(new MoodBean("开心2",R.drawable.happy2,3));
+        list.add(new MoodBean("开心3",R.drawable.happy3,4));
+        list.add(new MoodBean("害怕",R.drawable.haipa,5));
+        list.add(new MoodBean("闭嘴",R.drawable.bizui,6));
+        list.add(new MoodBean("吐舌",R.drawable.tushe,7));
+        list.add(new MoodBean("斜眼",R.drawable.xieyan,8));
+        list.add(new MoodBean("热恋",R.drawable.relian,9));
+        list.add(new MoodBean("亲吻",R.drawable.qinwen,10));
+        list.add(new MoodBean("伤心",R.drawable.sad,11));
+        list.add(new MoodBean("伤心2",R.drawable.sad2,12));
+        list.add(new MoodBean("笑哭",R.drawable.xiaoku,13));
+        list.add(new MoodBean("晕",R.drawable.yun,14));
+        list.add(new MoodBean("吐彩虹",R.drawable.tucaihong,15));
+        Lg.e("mood",list);
+        return list;
     }
 
     //读取本地下载好的txt数据包，解析

@@ -7,8 +7,10 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.fangzuo.assist.Dao.NoteBean;
+import com.fangzuo.assist.Dao.User;
 import com.fangzuo.greendao.gen.DaoMaster;
 import com.fangzuo.greendao.gen.NoteBeanDao;
+import com.fangzuo.greendao.gen.UserDao;
 
 import org.greenrobot.greendao.AbstractDao;
 import org.greenrobot.greendao.database.Database;
@@ -22,15 +24,15 @@ import java.util.List;
  * Created by Administrator on 2019/11/15.
  */
 
-public class MyOpenHelper extends DaoMaster.DevOpenHelper {
+public class DbUpgradeHelper extends DaoMaster.DevOpenHelper {
     private static final String CONVERSION_CLASS_NOT_FOUND_EXCEPTION =
             "MIGRATION HELPER - CLASS DOESN'T MATCH WITH THE CURRENT PARAMETERS";
 
-    public MyOpenHelper(Context context, String name) {
+    public DbUpgradeHelper(Context context, String name) {
         super(context, name);
     }
 
-    public MyOpenHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
+    public DbUpgradeHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
         super(context, name, factory);
     }
 
