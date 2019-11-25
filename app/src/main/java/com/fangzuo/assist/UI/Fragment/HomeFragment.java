@@ -56,13 +56,13 @@ public class HomeFragment extends BaseFragment {
         ButterKnife.bind(this, v);
         mContext = getActivity();
         noteBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getNoteBeanDao();
+        ryList.setAdapter(adapter = new HomeRyAdapter(mContext));
+        ryList.setLayoutManager(new LinearLayoutManager(mContext));
         return v;
     }
 
     @Override
     public void initView() {
-        ryList.setAdapter(adapter = new HomeRyAdapter(mContext));
-        ryList.setLayoutManager(new LinearLayoutManager(mContext));
 //        ryList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
     }
 
@@ -111,7 +111,18 @@ public class HomeFragment extends BaseFragment {
             }
         });
     }
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+//            adapter.clear();
+//            adapter.addAll(noteBeanDao.loadAll());
+//            initData();
+            //相当于Fragment的onResume
+        } else {
+            //相当于Fragment的onPause
+        }
+    }
 
     @Override
     protected void OnReceive(String barCode) {

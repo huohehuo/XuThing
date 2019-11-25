@@ -89,7 +89,8 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
     protected void initData() {
         tvTime.setText(CommonUtil.getTime(true));
         adapter.addAll(CommonUtil.getMoodBeanList());
-        ivMood.setImageResource(R.drawable.happy);
+//        ivMood.setImageResource(R.drawable.happy);
+        ivMood.setBackground(getResources().getDrawable(R.drawable.happy));
         moodInt = R.drawable.happy;
     }
 
