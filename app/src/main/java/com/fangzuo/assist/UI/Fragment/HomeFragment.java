@@ -29,10 +29,12 @@ import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.GetSettingList;
 import com.fangzuo.assist.Utils.GreenDaoManager;
+import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,8 +58,7 @@ public class HomeFragment extends BaseFragment {
         ButterKnife.bind(this, v);
         mContext = getActivity();
         noteBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getNoteBeanDao();
-        ryList.setAdapter(adapter = new HomeRyAdapter(mContext));
-        ryList.setLayoutManager(new LinearLayoutManager(mContext));
+
         return v;
     }
 
@@ -68,7 +69,18 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+        loadListData();
+    }
 
+    private void loadListData(){
+        if (null == ryList)return;
+        if (Hawk.get(Info.ChangeView,0)==0){
+            adapter = new HomeRyAdapter(mContext,0);
+        }else{
+            adapter = new HomeRyAdapter(mContext,1);
+        }
+        ryList.setAdapter(adapter);
+        ryList.setLayoutManager(new LinearLayoutManager(mContext));
         ryList.setRefreshing(true);
         adapter.clear();
         adapter.addAll(noteBeanDao.loadAll());
@@ -115,6 +127,7 @@ public class HomeFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
+            loadListData();
 //            adapter.clear();
 //            adapter.addAll(noteBeanDao.loadAll());
 //            initData();

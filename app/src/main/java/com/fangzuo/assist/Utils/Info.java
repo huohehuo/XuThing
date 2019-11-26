@@ -13,6 +13,8 @@ public class Info {
 //        }
     }
 
+    public static final String ChangeView = "ChangeView";
+    public static final String CbChangeView = "CbChangeView";
     public static final String DATABASESETTING = "master";
     public static final int SEARCHFORRESULT = 9998;
     public static final int SEARCHFORRESULTPRODUCT = 9997;

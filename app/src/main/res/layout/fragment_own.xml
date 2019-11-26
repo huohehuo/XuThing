@@ -25,6 +25,12 @@
 
     </RelativeLayout>
     <include layout="@layout/line_heng"/>
-
+    <CheckBox
+        android:id="@+id/cb_change_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="切换试图"
+        android:textColor="@android:color/holo_red_light"
+        android:textSize="15sp" />
 
 </LinearLayout>

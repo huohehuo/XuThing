@@ -16,14 +16,21 @@ import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
     Context context;
-
+    int type;
     public HomeRyAdapter(Context context) {
         super(context);
     }
-
+    public HomeRyAdapter(Context context,int type) {
+        super(context);
+        this.type=type;
+    }
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        return new MarkHolder(parent);
+        if (type == 0){
+            return new MarkHolder(parent);
+        }else{
+            return new MarkHolderForDate(parent);
+        }
     }
     class MarkHolder extends BaseViewHolder<NoteBean> {
 
@@ -59,6 +66,45 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
                     .into(icon);
         }
     }
+
+    class MarkHolderForDate extends BaseViewHolder<NoteBean> {
+
+        private TextView name;
+        private TextView time;
+        private TextView time_left;
+        private TextView detail;
+        private ImageView icon;
+        public MarkHolderForDate(ViewGroup parent) {
+            super(parent, R.layout.item_home_date);
+            name= $(R.id.tv_name);
+            time= $(R.id.tv_time);
+            time_left= $(R.id.tv_date_left);
+            icon= $(R.id.iv_icon);
+            detail= $(R.id.tv_detail);
+//            checkBox = $(R.id.view_cb);
+        }
+
+        @Override
+        public void setData(NoteBean data) {
+            super.setData(data);
+            name.setText(data.NTitle);
+            time.setText(data.Ntime);
+            time_left.setText(data.Ntime);
+            if (null==data.NDetail || "".equals(data.NDetail)){
+                detail.setVisibility(View.GONE);
+            }else{
+                detail.setText(data.NDetail);
+            }
+            Glide.with(getContext())
+                    .load(data.NMoodLocInt)
+//                    .load(R.drawable.happy)
+//                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
+                    .into(icon);
+        }
+    }
+
 
 
 //    //纯文字布局

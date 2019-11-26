@@ -6,13 +6,17 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseFragment;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.GreenDaoManager;
+import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.greendao.gen.NoteBeanDao;
+import com.orhanobut.hawk.Hawk;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,6 +28,9 @@ public class OwnFragment extends BaseFragment {
     ImageView ivBook;
     @BindView(R.id.tv_num)
     TextView tvNum;
+    @BindView(R.id.cb_change_view)
+    CheckBox cbChangeView;
+
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
 
@@ -43,7 +50,7 @@ public class OwnFragment extends BaseFragment {
 
     @Override
     public void initView() {
-
+        cbChangeView.setChecked(Hawk.get(Info.CbChangeView,false));
     }
 
     @Override
@@ -58,7 +65,17 @@ public class OwnFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
-
+        cbChangeView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Hawk.put(Info.ChangeView,1);
+                }else{
+                    Hawk.put(Info.ChangeView,0);
+                }
+                Hawk.put(Info.CbChangeView,isChecked);
+            }
+        });
     }
 
 
