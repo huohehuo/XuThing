@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 
 import com.fangzuo.assist.ABase.BaseFragment;
+import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.Activity.ProductInStorageActivity;
 import com.fangzuo.assist.Activity.PurchaseInStorageActivity;
 import com.fangzuo.assist.Activity.PurchaseOrderActivity;
@@ -86,16 +87,7 @@ public class HomeFragment extends BaseFragment {
         adapter.addAll(noteBeanDao.loadAll());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
-    }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        initData();
-    }
-
-    @Override
-    protected void initListener() {
         //列表点击事件
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
@@ -122,12 +114,27 @@ public class HomeFragment extends BaseFragment {
                 return true;
             }
         });
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    @Override
+    protected void initListener() {
+
     }
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            loadListData();
+            if (App.hasChangeView){
+                loadListData();
+                App.hasChangeView = false;
+            }
 //            adapter.clear();
 //            adapter.addAll(noteBeanDao.loadAll());
 //            initData();

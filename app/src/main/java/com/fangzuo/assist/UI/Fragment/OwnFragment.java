@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseFragment;
+import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
@@ -33,7 +34,7 @@ public class OwnFragment extends BaseFragment {
 
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
-
+    private boolean isChangeView=false;
     public OwnFragment() {
     }
 
@@ -51,6 +52,7 @@ public class OwnFragment extends BaseFragment {
     @Override
     public void initView() {
         cbChangeView.setChecked(Hawk.get(Info.CbChangeView,false));
+        isChangeView = cbChangeView.isChecked();
     }
 
     @Override
@@ -60,7 +62,6 @@ public class OwnFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-
     }
 
     @Override
@@ -74,6 +75,11 @@ public class OwnFragment extends BaseFragment {
                     Hawk.put(Info.ChangeView,0);
                 }
                 Hawk.put(Info.CbChangeView,isChecked);
+                //当控件状态与初始化的不一致时，设置值给HomeFragment布局做更新state
+                if (isChecked != isChangeView){
+                    App.hasChangeView = true;
+                    isChangeView=isChecked;
+                }
             }
         });
     }

@@ -43,6 +43,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class App extends MultiDexApplication {
     public static boolean isDebug=true;
     public static String JsonFile="";
+    public static boolean hasChangeView=false;//判断布局是否更新
 
     private static Context mContext;
 //    private String mCurDev = "";

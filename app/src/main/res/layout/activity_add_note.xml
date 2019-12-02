@@ -92,7 +92,6 @@
         android:layout_height="35dp" />
     <include layout="@layout/line_heng"/>
     <com.jude.easyrecyclerview.EasyRecyclerView
-        android:visibility="gone"
         android:id="@+id/ry_icon_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
