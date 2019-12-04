@@ -70,16 +70,12 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        loadListData();
-    }
-
-    private void loadListData(){
-        if (null == ryList)return;
-        if (Hawk.get(Info.ChangeView,0)==0){
-            adapter = new HomeRyAdapter(mContext,0);
-        }else{
-            adapter = new HomeRyAdapter(mContext,1);
-        }
+//        if (null == ryList)return;
+//        if (Hawk.get(Info.ChangeView,0)==0){
+//            adapter = new HomeRyAdapter(mContext,0);
+//        }else{
+            adapter = new HomeRyAdapter(mContext);
+//        }
         ryList.setAdapter(adapter);
         ryList.setLayoutManager(new LinearLayoutManager(mContext));
         ryList.setRefreshing(true);
@@ -88,6 +84,25 @@ public class HomeFragment extends BaseFragment {
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
 
+        loadListData();
+    }
+
+    private void loadListData(){
+//        if (null == ryList)return;
+//        if (Hawk.get(Info.ChangeView,0)==0){
+//            adapter = new HomeRyAdapter(mContext,0);
+//        }else{
+//            adapter = new HomeRyAdapter(mContext,1);
+//        }
+//        ryList.setAdapter(adapter);
+//        ryList.setLayoutManager(new LinearLayoutManager(mContext));
+//        ryList.setRefreshing(true);
+//        adapter.clear();
+//        adapter.addAll(noteBeanDao.loadAll());
+//        ryList.setRefreshing(false);
+
+
+        adapter.notifyDataSetChanged();
         //列表点击事件
         adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
             @Override
@@ -114,7 +129,6 @@ public class HomeFragment extends BaseFragment {
                 return true;
             }
         });
-
     }
 
     @Override

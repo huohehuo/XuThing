@@ -107,7 +107,6 @@ public class DataSearchRyAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             ((MarkHolder) holder).cb_ischeck.setChecked(false);
        }
 
-
     }
 
     public ConnectResponseBean.DataBaseList getItems(int position) {

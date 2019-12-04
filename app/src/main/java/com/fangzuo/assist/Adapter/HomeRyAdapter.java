@@ -11,22 +11,27 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
+import com.fangzuo.assist.Utils.Info;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.orhanobut.hawk.Hawk;
 
 public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
     Context context;
-    int type;
     public HomeRyAdapter(Context context) {
         super(context);
     }
-    public HomeRyAdapter(Context context,int type) {
-        super(context);
-        this.type=type;
+    @Override
+    public int getViewType(int position) {
+        if (Hawk.get(Info.ChangeView,0)==0){
+            return 1;
+        }else{
+            return 2;
+        }
     }
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
-        if (type == 0){
+        if (viewType == 1){
             return new MarkHolder(parent);
         }else{
             return new MarkHolderForDate(parent);
