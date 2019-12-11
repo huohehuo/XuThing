@@ -94,4 +94,11 @@
         <attr name="clientspinner_size" format="dimension" />
         <attr name="clientspinner_hint" format="string" />
     </declare-styleable>
+
+
+    <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+
+
 </resources>

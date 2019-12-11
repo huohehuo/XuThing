@@ -53,6 +53,11 @@ public class OwnFragment extends BaseFragment {
     public void initView() {
         cbChangeView.setChecked(Hawk.get(Info.CbChangeView,false));
         isChangeView = cbChangeView.isChecked();
+        if (cbChangeView.isChecked()){
+            cbChangeView.setText("日期视图");
+        }else{
+            cbChangeView.setText("表情视图");
+        }
     }
 
     @Override
@@ -66,13 +71,16 @@ public class OwnFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        //改变布局
         cbChangeView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    cbChangeView.setText("日期视图");
                     Hawk.put(Info.ChangeView,1);
                 }else{
                     Hawk.put(Info.ChangeView,0);
+                    cbChangeView.setText("表情视图");
                 }
                 Hawk.put(Info.CbChangeView,isChecked);
                 //当控件状态与初始化的不一致时，设置值给HomeFragment布局做更新state

@@ -8,6 +8,11 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.Utils.Lg;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class WelcomeActivity extends AppCompatActivity {
 
