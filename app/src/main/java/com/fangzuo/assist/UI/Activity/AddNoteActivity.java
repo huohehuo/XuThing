@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.View;
@@ -81,7 +82,8 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         noteBeanDao = daoSession.getNoteBeanDao();
 
         ryIconList.setAdapter(adapter = new MoodRyAdapter(mContext));
-        ryIconList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+//        ryIconList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        ryIconList.setLayoutManager(new GridLayoutManager(this,6));
 //        ryList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
     }
 

@@ -31,10 +31,15 @@ public class OwnFragment extends BaseFragment {
     TextView tvNum;
     @BindView(R.id.cb_change_view)
     CheckBox cbChangeView;
+    @BindView(R.id.tv_mood)
+    TextView tvMood;
+    @BindView(R.id.tv_rili)
+    TextView tvRili;
 
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
-    private boolean isChangeView=false;
+    private boolean isChangeView = false;
+
     public OwnFragment() {
     }
 
@@ -51,12 +56,14 @@ public class OwnFragment extends BaseFragment {
 
     @Override
     public void initView() {
-        cbChangeView.setChecked(Hawk.get(Info.CbChangeView,false));
+        cbChangeView.setChecked(Hawk.get(Info.CbChangeView, false));
         isChangeView = cbChangeView.isChecked();
-        if (cbChangeView.isChecked()){
-            cbChangeView.setText("日期视图");
-        }else{
-            cbChangeView.setText("表情视图");
+        if (cbChangeView.isChecked()) {
+            tvRili.setTextColor(mContext.getResources().getColor(R.color.red));
+            tvMood.setTextColor(mContext.getResources().getColor(R.color.black));
+        } else {
+            tvRili.setTextColor(mContext.getResources().getColor(R.color.black));
+            tvMood.setTextColor(mContext.getResources().getColor(R.color.red));
         }
     }
 
@@ -75,19 +82,33 @@ public class OwnFragment extends BaseFragment {
         cbChangeView.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
-                    cbChangeView.setText("日期视图");
-                    Hawk.put(Info.ChangeView,1);
-                }else{
-                    Hawk.put(Info.ChangeView,0);
-                    cbChangeView.setText("表情视图");
+                if (isChecked) {
+                    tvRili.setTextColor(mContext.getResources().getColor(R.color.red));
+                    tvMood.setTextColor(mContext.getResources().getColor(R.color.black));
+                    Hawk.put(Info.ChangeView, 1);
+                } else {
+                    Hawk.put(Info.ChangeView, 0);
+                    tvRili.setTextColor(mContext.getResources().getColor(R.color.black));
+                    tvMood.setTextColor(mContext.getResources().getColor(R.color.red));
                 }
-                Hawk.put(Info.CbChangeView,isChecked);
+                Hawk.put(Info.CbChangeView, isChecked);
                 //当控件状态与初始化的不一致时，设置值给HomeFragment布局做更新state
-                if (isChecked != isChangeView){
+                if (isChecked != isChangeView) {
                     App.hasChangeView = true;
-                    isChangeView=isChecked;
+                    isChangeView = isChecked;
                 }
+            }
+        });
+        tvMood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cbChangeView.setChecked(false);
+            }
+        });
+        tvRili.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                cbChangeView.setChecked(true);
             }
         });
     }
@@ -102,7 +123,7 @@ public class OwnFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            tvNum.setText("叙:"+noteBeanDao.loadAll().size());
+            tvNum.setText("叙:" + noteBeanDao.loadAll().size());
             //相当于Fragment的onResume
         } else {
             //相当于Fragment的onPause
@@ -121,7 +142,7 @@ public class OwnFragment extends BaseFragment {
             case R.id.iv_book:
                 break;
             case R.id.tv_num:
-                tvNum.setText("叙:"+noteBeanDao.loadAll().size());
+                tvNum.setText("叙:" + noteBeanDao.loadAll().size());
 
                 break;
         }
