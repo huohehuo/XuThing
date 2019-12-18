@@ -13,6 +13,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fangzuo.assist.ABase.BaseActivity;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.widget.LoadingUtil;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 
@@ -57,7 +58,7 @@ public class ShowNoteActivity extends BaseActivity {
             tvTime.setText(noteBean.Ntime);
             edDetail.setText(noteBean.NDetail);
             Glide.with(this)
-                    .load(noteBean.NMoodLocInt)
+                    .load(CommonUtil.getMoodByType(noteBean.NMoodLocInt))
 //                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制

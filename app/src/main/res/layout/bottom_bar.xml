@@ -37,7 +37,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:id="@+id/bottom_btn_sale"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -49,9 +48,10 @@
                 android:id="@+id/iv_sale"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:src="@mipmap/unsale" />
+                android:src="@mipmap/rili" />
 
             <TextView
+                android:visibility="gone"
                 android:id="@+id/tv_sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

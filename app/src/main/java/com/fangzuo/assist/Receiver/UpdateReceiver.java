@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.fangzuo.assist.Activity.SplashActivity;
+import com.fangzuo.assist.UI.Activity.WelcomeActivity;
 import com.fangzuo.assist.Utils.Lg;
 
 /**
@@ -19,7 +20,7 @@ public class UpdateReceiver extends BroadcastReceiver {
 //            Lg.e("得到包名2",context.getPackageName());
             if (intent.getDataString().equals("package:"+context.getPackageName())){
                 Lg.e("TAG","收到广播,包名一致");
-                Intent intent2 = new Intent(context, SplashActivity.class);
+                Intent intent2 = new Intent(context, WelcomeActivity.class);
                 intent2.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent2);
             }else {

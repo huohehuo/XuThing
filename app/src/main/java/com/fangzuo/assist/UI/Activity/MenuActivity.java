@@ -16,6 +16,7 @@ import com.fangzuo.assist.Adapter.MenuFragmentAdapter;
 import com.fangzuo.assist.UI.Fragment.HomeFragment;
 import com.fangzuo.assist.UI.Fragment.OwnFragment;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.UI.Fragment.RiliFragment;
 import com.fangzuo.greendao.gen.DaoSession;
 
 import org.greenrobot.greendao.async.AsyncSession;
@@ -118,6 +119,12 @@ public class MenuActivity extends BaseActivity {
                         break;
                     case 1:
                         resetBottomView();
+                        ivSale.setImageResource(R.mipmap.rili);
+                        tvSale.setTextColor(tvcolor);
+                        ivAdd.setVisibility(View.VISIBLE);
+                        break;
+                    case 2:
+                        resetBottomView();
                         ivSetting.setImageResource(R.mipmap.set);
                         ivAdd.setVisibility(View.GONE);
 //                        tvSetting.setTextColor(tvcolor);
@@ -140,11 +147,10 @@ public class MenuActivity extends BaseActivity {
 
     private void initFragments() {
         FragmentManager fm = getSupportFragmentManager();
-        HomeFragment purchaseFragment = new HomeFragment();
-        OwnFragment settingFragment = new OwnFragment();
         ArrayList<Fragment> fragments = new ArrayList<>();
-        fragments.add(purchaseFragment);
-        fragments.add(settingFragment);
+        fragments.add(new HomeFragment());
+        fragments.add(new RiliFragment());
+        fragments.add(new OwnFragment());
         MenuFragmentAdapter menuFragmentAdapter = new MenuFragmentAdapter(fm, fragments);
         viewPager.setAdapter(menuFragmentAdapter);
         viewPager.setCurrentItem(0);
@@ -172,7 +178,7 @@ public class MenuActivity extends BaseActivity {
 
     private void resetBottomView() {
         ivPurchase.setImageResource(R.mipmap.home_no);
-//        ivSale.setImageResource(R.mipmap.unsale);
+        ivSale.setImageResource(R.mipmap.rili_no);
 //        ivStorage.setImageResource(R.mipmap.unstorage);
         ivSetting.setImageResource(R.mipmap.set_no);
 //        tvPurchase.setTextColor(tvColorUnClick);
@@ -187,7 +193,7 @@ public class MenuActivity extends BaseActivity {
     }
 
 
-    @OnClick({R.id.iv_add, R.id.ll1,R.id.bottom_btn_purchase,R.id.bottom_btn_setting})
+    @OnClick({R.id.iv_add, R.id.ll1,R.id.bottom_btn_purchase,R.id.bottom_btn_sale,R.id.bottom_btn_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_add:
@@ -202,8 +208,15 @@ public class MenuActivity extends BaseActivity {
                 tvPurchase.setTextColor(tvcolor);
                 ivAdd.setVisibility(View.VISIBLE);
                 break;
-            case R.id.bottom_btn_setting:
+            case R.id.bottom_btn_sale:
                 viewPager.setCurrentItem(1, true);
+                resetBottomView();
+                ivSale.setImageResource(R.mipmap.rili);
+                tvSale.setTextColor(tvcolor);
+                ivAdd.setVisibility(View.VISIBLE);
+                break;
+            case R.id.bottom_btn_setting:
+                viewPager.setCurrentItem(2, true);
                 resetBottomView();
                 ivSetting.setImageResource(R.mipmap.set);
                 tvSetting.setTextColor(tvcolor);

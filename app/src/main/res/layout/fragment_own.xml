@@ -52,4 +52,35 @@
 
     <include layout="@layout/line_heng"/>
 
+    <RadioGroup
+        android:orientation="horizontal"
+        android:id="@+id/redorBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RadioButton
+            android:text="表情视图"
+            android:id="@+id/rb_1"
+            android:checked="true"
+            android:textColor="@color/button_blue"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:text="日历视图"
+            android:id="@+id/rb_2"
+            android:textColor="@color/red"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <RadioButton
+            android:text="日历视图"
+            android:id="@+id/rb_3"
+            android:textColor="@color/red"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+    </RadioGroup>
+
+
 </LinearLayout>

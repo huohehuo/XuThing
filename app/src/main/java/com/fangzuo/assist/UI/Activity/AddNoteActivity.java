@@ -93,7 +93,7 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         adapter.addAll(CommonUtil.getMoodBeanList());
 //        ivMood.setImageResource(R.drawable.happy);
         ivMood.setBackground(getResources().getDrawable(R.drawable.happy));
-        moodInt = R.drawable.happy;
+        moodInt = 0;
     }
 
     @Override
@@ -114,7 +114,7 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
                 MoodBean moodBean = adapter.getAllData().get(position);
                 Lg.e("选择图标",moodBean);
                 ivMood.setBackground(getResources().getDrawable(moodBean.MLocint));
-                moodInt = moodBean.MLocint;
+                moodInt = moodBean.type;
 
             }
         });

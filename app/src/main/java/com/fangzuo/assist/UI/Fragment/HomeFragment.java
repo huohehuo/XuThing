@@ -80,7 +80,7 @@ public class HomeFragment extends BaseFragment {
         ryList.setLayoutManager(new LinearLayoutManager(mContext));
         ryList.setRefreshing(true);
         adapter.clear();
-        adapter.addAll(noteBeanDao.loadAll());
+        adapter.addAll(noteBeanDao.queryBuilder().orderDesc(NoteBeanDao.Properties.Id).build().list());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
 

@@ -63,7 +63,7 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
                 detail.setText(data.NDetail);
             }
             Glide.with(getContext())
-                    .load(data.NMoodLocInt)
+                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
 //                    .load(R.drawable.happy)
 //                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
                     .skipMemoryCache(true)
@@ -101,7 +101,7 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
                 detail.setText(data.NDetail);
             }
             Glide.with(getContext())
-                    .load(data.NMoodLocInt)
+                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
 //                    .load(R.drawable.happy)
 //                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
                     .skipMemoryCache(true)

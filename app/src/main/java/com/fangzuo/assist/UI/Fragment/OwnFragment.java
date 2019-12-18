@@ -16,6 +16,7 @@ import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
+import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.orhanobut.hawk.Hawk;
 
@@ -111,6 +112,24 @@ public class OwnFragment extends BaseFragment {
                 cbChangeView.setChecked(true);
             }
         });
+
+        //        redorBlue.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+//                RadioButton radioButton = findViewById(i);
+//                isRed = radioButton.getText().toString().equals("红字");
+//                redblue = isRed ? "红字" : "蓝字";
+//        if(checkedId==b1.getId()){
+//            Toast.makeText(main.this,"b1选中", Toast.LENGTH_LONG).show();
+//        }
+//        if(checkedId==b2.getId()){
+//            Toast.makeText(main.this,"b2选中", Toast.LENGTH_LONG).show();
+//        }
+//        if(checkedId==b3.getId()){
+//            Toast.makeText(main.this,"b3选中", Toast.LENGTH_LONG).show();
+//        }
+//            }
+//        });
     }
 
 
@@ -123,7 +142,7 @@ public class OwnFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            tvNum.setText("叙:" + noteBeanDao.loadAll().size());
+            if (null != noteBeanDao)tvNum.setText("叙:" + noteBeanDao.loadAll().size());
             //相当于Fragment的onResume
         } else {
             //相当于Fragment的onPause

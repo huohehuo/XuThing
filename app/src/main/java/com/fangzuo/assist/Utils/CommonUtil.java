@@ -208,6 +208,46 @@ Calendar cal = Calendar.getInstance();
         Lg.e("mood",list);
         return list;
     }
+    public static int getMoodByType(int type){
+        switch (type){
+            case 0:return R.drawable.happy;
+//                break;
+            case 1:return R.drawable.shayan;
+//            break;
+            case 2:return R.drawable.ku;
+//            break;
+            case 3:return R.drawable.happy2;
+//            break;
+            case 4:return R.drawable.happy3;
+//            break;
+            case 5:return R.drawable.haipa;
+//            break;
+            case 6:return R.drawable.bizui;
+//            break;
+            case 7:return R.drawable.tushe;
+//            break;
+            case 8:return R.drawable.xieyan;
+//            break;
+            case 9:return R.drawable.relian;
+//            break;
+            case 10:return R.drawable.qinwen;
+//            break;
+            case 11:return R.drawable.sad;
+//            break;
+            case 12:return R.drawable.sad2;
+//            break;
+            case 13:return R.drawable.xiaoku;
+//            break;
+            case 14:return R.drawable.yun;
+//            break;
+            case 15:return R.drawable.tucaihong;
+//            break;
+        }
+        return 0;
+    }
+
+
+
 
     //读取本地下载好的txt数据包，解析
     public static String getString(String txtName) {
@@ -269,7 +309,7 @@ Calendar cal = Calendar.getInstance();
 //            Log.v(TAG,"7.0以上，正在安装apk...");
             //provider authorities
             Uri apkUri = FileProvider.getUriForFile(context,
-                    context.getPackageName()+".new.provider",
+                    context.getPackageName()+".provider",
 //                    BuildConfig.APPLICATION_ID + ".provider",
                     file);
 //            Uri apkUri = FileProvider.getUriForFile(context, "com.fangzuo.assist.fileprovider", file);
