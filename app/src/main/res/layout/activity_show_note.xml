@@ -93,5 +93,14 @@
         android:layout_width="match_parent"
         android:layout_height="35dp" />
     <include layout="@layout/line_heng"/>
-
+    <com.jude.easyrecyclerview.EasyRecyclerView
+        android:id="@+id/ry_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:recyclerClipToPadding="true"
+        app:recyclerPaddingTop="8dp"
+        app:layout_empty="@layout/item_nothing"
+        app:scrollbarStyle="insideOverlay"
+        app:scrollbars="none" />
 </LinearLayout>

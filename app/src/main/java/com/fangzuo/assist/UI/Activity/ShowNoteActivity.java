@@ -3,6 +3,7 @@ package com.fangzuo.assist.UI.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -11,11 +12,16 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.fangzuo.assist.ABase.BaseActivity;
+import com.fangzuo.assist.Adapter.MoodRyAdapter;
+import com.fangzuo.assist.Beans.MoodBean;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
+import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.widget.LoadingUtil;
 import com.fangzuo.greendao.gen.NoteBeanDao;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,9 +36,12 @@ public class ShowNoteActivity extends BaseActivity {
     ImageView ivMood;
     @BindView(R.id.ed_detail)
     EditText edDetail;
+    @BindView(R.id.ry_list)
+    EasyRecyclerView ryIconList;
     private NoteBeanDao noteBeanDao;
     private NoteBean noteBean;
     private String notId;
+    private MoodRyAdapter adapter;
 
     @Override
     protected void initView() {
@@ -64,6 +73,20 @@ public class ShowNoteActivity extends BaseActivity {
                     .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
                     .into(ivMood);
         }
+
+        ryIconList.setAdapter(adapter = new MoodRyAdapter(mContext));
+//        ryIconList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
+        ryIconList.setLayoutManager(new GridLayoutManager(this,6));
+//        ryList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                MoodBean moodBean = adapter.getAllData().get(position);
+                Lg.e("选择图标",moodBean);
+
+            }
+        });
+
 
     }
 
