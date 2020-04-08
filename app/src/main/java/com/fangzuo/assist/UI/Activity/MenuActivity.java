@@ -1,5 +1,9 @@
 package com.fangzuo.assist.UI.Activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -73,6 +77,9 @@ public class MenuActivity extends BaseActivity {
     private long nowTime;
     private int size;
 
+
+
+
     @Override
     public void initView() {
         setContentView(R.layout.activity_menu);
@@ -80,7 +87,6 @@ public class MenuActivity extends BaseActivity {
         ButterKnife.bind(this);
         initBar();
         initFragments();
-
     }
 
     @Override
@@ -117,13 +123,13 @@ public class MenuActivity extends BaseActivity {
                         tvPurchase.setTextColor(tvcolor);
                         ivAdd.setVisibility(View.VISIBLE);
                         break;
+//                    case 1:
+//                        resetBottomView();
+//                        ivSale.setImageResource(R.mipmap.rili);
+//                        tvSale.setTextColor(tvcolor);
+//                        ivAdd.setVisibility(View.VISIBLE);
+//                        break;
                     case 1:
-                        resetBottomView();
-                        ivSale.setImageResource(R.mipmap.rili);
-                        tvSale.setTextColor(tvcolor);
-                        ivAdd.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
                         resetBottomView();
                         ivSetting.setImageResource(R.mipmap.set);
                         ivAdd.setVisibility(View.GONE);
@@ -149,7 +155,7 @@ public class MenuActivity extends BaseActivity {
         FragmentManager fm = getSupportFragmentManager();
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
-        fragments.add(new RiliFragment());
+//        fragments.add(new RiliFragment());
         fragments.add(new OwnFragment());
         MenuFragmentAdapter menuFragmentAdapter = new MenuFragmentAdapter(fm, fragments);
         viewPager.setAdapter(menuFragmentAdapter);
