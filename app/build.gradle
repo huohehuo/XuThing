@@ -54,7 +54,7 @@ android {
 }
 
 greendao {
-    schemaVersion 19
+    schemaVersion 21
     daoPackage 'com.fangzuo.greendao.gen'
     targetGenDir 'src/main/java'
 }
@@ -67,7 +67,7 @@ dependencies {
     implementation files('libs/httpcore-4.0-alpha5.jar')
     implementation files('libs/nineoldandroids-2.4.0.jar')
     implementation files('libs/xUtils-2.6.14.jar')
-    implementation 'com.android.support:appcompat-v7:27.1.0'
+    implementation 'com.android.support:appcompat-v7:27.1.1'
     //    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     //    compile 'com.squareup.retrofit2:retrofit:2.0.2'
     implementation 'com.squareup.okhttp3:okhttp:3.7.0'
@@ -77,10 +77,10 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.4.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.4.0'
     implementation 'pub.devrel:easypermissions:0.1.5'
-    implementation 'com.android.support:support-v4:27.1.0'
+    implementation 'com.android.support:support-v4:27.1.1'
     testCompile 'junit:junit:4.12'
     implementation 'org.greenrobot:eventbus:3.0.0'
-    implementation 'com.android.support:design:27.1.0'
+    implementation 'com.android.support:design:27.1.1'
     //    implementation files('libs/core.jar')
     implementation files('libs/scanSDK.jar')
     implementation 'com.android.support:multidex:1.0.3'
@@ -91,7 +91,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava:2.1.0'
     implementation 'io.reactivex:rxjava:1.2.1'
     implementation 'io.reactivex:rxandroid:1.2.0'
-    implementation 'com.android.support:cardview-v7:27.1.0'
+    implementation 'com.android.support:cardview-v7:27.1.1'
     implementation 'com.orhanobut:hawk:2.0.1'
     compile 'com.jude:easyrecyclerview:4.4.2'
     //    implementation files('libs/DeviceAPIver20160627.jar')

@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.Dao.User;
+import com.fangzuo.greendao.gen.BibieDao;
+import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.DaoMaster;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.fangzuo.greendao.gen.UserDao;
@@ -43,7 +46,8 @@ public class DbUpgradeHelper extends DaoMaster.DevOpenHelper {
         onCreate(db);
         需要自己定制升级
         */
-       migrate(db, NoteBeanDao.class);
+       migrate(db, NoteBeanDao.class,
+               BuyBeanDao.class);
     }
 
     /**

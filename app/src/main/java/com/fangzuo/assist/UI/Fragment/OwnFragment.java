@@ -3,20 +3,22 @@ package com.fangzuo.assist.UI.Fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseFragment;
 import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.UI.Activity.BaseDataActivity;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
-import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.orhanobut.hawk.Hawk;
 
@@ -36,6 +38,14 @@ public class OwnFragment extends BaseFragment {
     TextView tvMood;
     @BindView(R.id.tv_rili)
     TextView tvRili;
+    @BindView(R.id.tv_loc_num)
+    AppCompatTextView tvLocNum;
+    @BindView(R.id.ll_data)
+    LinearLayout llData;
+    @BindView(R.id.tv_cloud_num)
+    AppCompatTextView tvCloudNum;
+    @BindView(R.id.ll_cloud)
+    LinearLayout llCloud;
 
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
@@ -142,7 +152,7 @@ public class OwnFragment extends BaseFragment {
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
-            if (null != noteBeanDao)tvNum.setText("叙:" + noteBeanDao.loadAll().size());
+            if (null != noteBeanDao) tvNum.setText("叙:" + noteBeanDao.loadAll().size());
             //相当于Fragment的onResume
         } else {
             //相当于Fragment的onPause
@@ -155,7 +165,7 @@ public class OwnFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.iv_book, R.id.tv_num})
+    @OnClick({R.id.iv_book, R.id.tv_num,R.id.ll_data, R.id.ll_cloud})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_book:
@@ -164,6 +174,13 @@ public class OwnFragment extends BaseFragment {
                 tvNum.setText("叙:" + noteBeanDao.loadAll().size());
 
                 break;
+            case R.id.ll_data:
+                BaseDataActivity.start(mContext);
+                break;
+            case R.id.ll_cloud:
+                break;
         }
     }
+
+
 }

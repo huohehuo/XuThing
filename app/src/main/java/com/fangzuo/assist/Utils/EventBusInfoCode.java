@@ -27,5 +27,6 @@ public class EventBusInfoCode {
 
     public static final String ScanResult = "ScanResult";
     public static final String Close_Activity = "Close_Activity";
+    public static final String BaseData_Tip = "BaseData_Tip";
 
 }
