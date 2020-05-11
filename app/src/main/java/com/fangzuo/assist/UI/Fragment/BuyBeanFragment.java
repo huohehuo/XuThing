@@ -144,10 +144,6 @@ public class BuyBeanFragment extends BaseFragment {
             if (null != noteBeanDao) {
                 EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, noteBeanDao.loadAll().size() + ""));
             }
-//            if (App.hasChangeView){
-//                loadListData();
-//                App.hasChangeView = false;
-//            }
 //            adapter.clear();
 //            adapter.addAll(noteBeanDao.loadAll());
 //            initData();
