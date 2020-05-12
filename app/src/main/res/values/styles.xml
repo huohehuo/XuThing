@@ -99,6 +99,10 @@
     <style name="CustomCheckboxTheme" parent="@android:style/Widget.CompoundButton.CheckBox">
         <item name="android:button">@drawable/checkbox_style</item>
     </style>
-
+    <declare-styleable name="ManSpinner">
+        <attr name="manspinner_name" format="string" />
+        <attr name="manspinner_title" format="string" />
+        <attr name="manspinner_size" format="dimension" />
+    </declare-styleable>
 
 </resources>

@@ -19,6 +19,7 @@ public class BuyBean {
         FName = name;
         FCreateData = data;
     }
+
     @Generated(hash = 1124113276)
     public BuyBean(Long id, String FName, String FCreateData, String FIsCloud,
             String FUseNum) {

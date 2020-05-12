@@ -24,6 +24,7 @@ import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
 import com.fangzuo.greendao.gen.AddrBeanDao;
 import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;

@@ -18,21 +18,26 @@ public class NoteBean {
     public int NMoodLocInt;//
 //    public byte[] NPic;
     public String NCreateTime;
+    public String NBuyName;
+    public String NAddrName;
 
     public NoteBean(String NTitle, String Ntime) {
         this.NTitle = NTitle;
         this.Ntime = Ntime;
     }
 
-    @Generated(hash = 1462593919)
+    @Generated(hash = 1898096123)
     public NoteBean(Long id, String NTitle, String Ntime, String NDetail,
-            int NMoodLocInt, String NCreateTime) {
+            int NMoodLocInt, String NCreateTime, String NBuyName,
+            String NAddrName) {
         this.id = id;
         this.NTitle = NTitle;
         this.Ntime = Ntime;
         this.NDetail = NDetail;
         this.NMoodLocInt = NMoodLocInt;
         this.NCreateTime = NCreateTime;
+        this.NBuyName = NBuyName;
+        this.NAddrName = NAddrName;
     }
 
     @Generated(hash = 451626881)
@@ -85,6 +90,22 @@ public class NoteBean {
 
     public void setNCreateTime(String NCreateTime) {
         this.NCreateTime = NCreateTime;
+    }
+
+    public String getNBuyName() {
+        return this.NBuyName;
+    }
+
+    public void setNBuyName(String NBuyName) {
+        this.NBuyName = NBuyName;
+    }
+
+    public String getNAddrName() {
+        return this.NAddrName;
+    }
+
+    public void setNAddrName(String NAddrName) {
+        this.NAddrName = NAddrName;
     }
 
 

@@ -16,9 +16,9 @@ import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.orhanobut.hawk.Hawk;
 
-public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
+public class HomeoldRyAdapter extends RecyclerArrayAdapter<NoteBean> {
     Context context;
-    public HomeRyAdapter(Context context) {
+    public HomeoldRyAdapter(Context context) {
         super(context);
     }
     @Override
@@ -60,15 +60,15 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
             if (null==data.NDetail || "".equals(data.NDetail)){
                 detail.setVisibility(View.GONE);
             }else{
-                detail.setText(data.NBuyName+"__"+data.NAddrName);
+                detail.setText(data.NDetail);
             }
-//            Glide.with(getContext())
-//                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
-////                    .load(R.drawable.happy)
-////                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
-//                    .skipMemoryCache(true)
-//                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
-//                    .into(icon);
+            Glide.with(getContext())
+                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
+//                    .load(R.drawable.happy)
+//                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
+                    .into(icon);
         }
     }
 

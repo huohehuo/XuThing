@@ -11,6 +11,7 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <ImageView
+            android:visibility="gone"
             tools:background="@drawable/happy"
             android:id="@+id/iv_icon"
             android:layout_width="50dp"

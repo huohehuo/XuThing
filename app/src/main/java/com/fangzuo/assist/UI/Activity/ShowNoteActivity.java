@@ -19,6 +19,8 @@ import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.widget.LoadingUtil;
+import com.fangzuo.assist.widget.SpinnerAddrUIDlg;
+import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -32,16 +34,15 @@ public class ShowNoteActivity extends BaseActivity {
     TextView tvTime;
     @BindView(R.id.ed_name)
     EditText edName;
-    @BindView(R.id.iv_mood)
-    ImageView ivMood;
     @BindView(R.id.ed_detail)
     EditText edDetail;
-    @BindView(R.id.ry_list)
-    EasyRecyclerView ryIconList;
+    @BindView(R.id.sp_buy)
+    SpinnerBuyUIDlg spBuyUIDlg;
+    @BindView(R.id.sp_addr)
+    SpinnerAddrUIDlg spAddrUIDlg;
     private NoteBeanDao noteBeanDao;
     private NoteBean noteBean;
     private String notId;
-    private MoodRyAdapter adapter;
 
     @Override
     protected void initView() {
@@ -66,27 +67,9 @@ public class ShowNoteActivity extends BaseActivity {
             edName.setText(noteBean.NTitle);
             tvTime.setText(noteBean.Ntime);
             edDetail.setText(noteBean.NDetail);
-            Glide.with(this)
-                    .load(CommonUtil.getMoodByType(noteBean.NMoodLocInt))
-//                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
-                    .into(ivMood);
+            spBuyUIDlg.setAutoSelection("",noteBean.NBuyName,false);
+            spAddrUIDlg.setAutoSelection("",noteBean.NAddrName,false);
         }
-
-        ryIconList.setAdapter(adapter = new MoodRyAdapter(mContext));
-//        ryIconList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL,false));
-        ryIconList.setLayoutManager(new GridLayoutManager(this,6));
-//        ryList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
-        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(int position) {
-                MoodBean moodBean = adapter.getAllData().get(position);
-                Lg.e("选择图标",moodBean);
-
-            }
-        });
-
 
     }
 
@@ -134,6 +117,8 @@ public class ShowNoteActivity extends BaseActivity {
                     noteBean.NTitle = edName.getText().toString();
                     noteBean.NDetail = edDetail.getText().toString();
                     noteBean.Ntime = tvTime.getText().toString();
+                    noteBean.NBuyName = spBuyUIDlg.getDataName();
+                    noteBean.NAddrName = spAddrUIDlg.getDataName();
                     noteBeanDao.update(noteBean);
                     finish();
                 }else{

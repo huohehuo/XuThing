@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.Dao.Department;
 import com.fangzuo.assist.R;
 
@@ -16,12 +17,12 @@ import java.util.List;
  * Created by NB on 2017/7/27.
  */
 
-public class DepartmentSpAdapter extends BaseAdapter {
+public class BaseDataBuySpAdapter extends BaseAdapter {
     Context context;
-    List<Department> items;
+    List<BuyBean> items;
     private ViewHolder viewHolder;
 
-    public DepartmentSpAdapter(Context context, List<Department> items) {
+    public BaseDataBuySpAdapter(Context context, List<BuyBean> items) {
         this.context = context;
         this.items = items;
     }
@@ -29,7 +30,7 @@ public class DepartmentSpAdapter extends BaseAdapter {
         items.clear();
         notifyDataSetChanged();
     }
-    public void addData(List<Department> items){
+    public void addData(List<BuyBean> items){
         this.items = items;
         notifyDataSetChanged();
     }

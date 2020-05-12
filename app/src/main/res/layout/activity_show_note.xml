@@ -50,12 +50,6 @@
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:layout_marginRight="4dp"
-            tools:background="@drawable/happy"
-            android:id="@+id/iv_mood"
-            android:layout_width="50dp"
-            android:layout_height="50dp" />
         <EditText
             android:id="@+id/ed_name"
             android:selectAllOnFocus="true"
@@ -69,7 +63,29 @@
             android:paddingTop="2dp"
             />
     </LinearLayout>
-
+    <include layout="@layout/line_heng"/>
+    <com.fangzuo.assist.widget.SpinnerBuyUIDlg
+        android:id="@+id/sp_buy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:manspinner_name="购买种类"
+        app:manspinner_size="20sp" />
+    <include layout="@layout/line_heng"/>
+    <com.fangzuo.assist.widget.SpinnerAddrUIDlg
+        android:id="@+id/sp_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:manspinner_name="所在地址"
+        app:manspinner_size="20sp" />
+    <include layout="@layout/line_heng"/>
+    <TextView
+        android:id="@+id/tv_time"
+        tools:text="事件2019"
+        android:gravity="right|center_vertical"
+        android:textSize="15sp"
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="35dp" />
     <include layout="@layout/line_heng"/>
     <EditText
         android:id="@+id/ed_detail"
@@ -83,24 +99,6 @@
         android:imeOptions="actionNone"
         android:paddingTop="2dp"
         />
+
     <include layout="@layout/line_heng"/>
-    <TextView
-        android:id="@+id/tv_time"
-        tools:text="事件2019"
-        android:gravity="right|center_vertical"
-        android:textSize="15sp"
-        android:layout_margin="4dp"
-        android:layout_width="match_parent"
-        android:layout_height="35dp" />
-    <include layout="@layout/line_heng"/>
-    <com.jude.easyrecyclerview.EasyRecyclerView
-        android:id="@+id/ry_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:foreground="?android:attr/selectableItemBackground"
-        app:recyclerClipToPadding="true"
-        app:recyclerPaddingTop="8dp"
-        app:layout_empty="@layout/item_nothing"
-        app:scrollbarStyle="insideOverlay"
-        app:scrollbars="none" />
 </LinearLayout>

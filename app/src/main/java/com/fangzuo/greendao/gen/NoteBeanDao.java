@@ -30,6 +30,8 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         public final static Property NDetail = new Property(3, String.class, "NDetail", false, "NDETAIL");
         public final static Property NMoodLocInt = new Property(4, int.class, "NMoodLocInt", false, "NMOOD_LOC_INT");
         public final static Property NCreateTime = new Property(5, String.class, "NCreateTime", false, "NCREATE_TIME");
+        public final static Property NBuyName = new Property(6, String.class, "NBuyName", false, "NBUY_NAME");
+        public final static Property NAddrName = new Property(7, String.class, "NAddrName", false, "NADDR_NAME");
     }
 
 
@@ -50,7 +52,9 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
                 "\"NTIME\" TEXT," + // 2: Ntime
                 "\"NDETAIL\" TEXT," + // 3: NDetail
                 "\"NMOOD_LOC_INT\" INTEGER NOT NULL ," + // 4: NMoodLocInt
-                "\"NCREATE_TIME\" TEXT);"); // 5: NCreateTime
+                "\"NCREATE_TIME\" TEXT," + // 5: NCreateTime
+                "\"NBUY_NAME\" TEXT," + // 6: NBuyName
+                "\"NADDR_NAME\" TEXT);"); // 7: NAddrName
     }
 
     /** Drops the underlying database table. */
@@ -88,6 +92,16 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         if (NCreateTime != null) {
             stmt.bindString(6, NCreateTime);
         }
+ 
+        String NBuyName = entity.getNBuyName();
+        if (NBuyName != null) {
+            stmt.bindString(7, NBuyName);
+        }
+ 
+        String NAddrName = entity.getNAddrName();
+        if (NAddrName != null) {
+            stmt.bindString(8, NAddrName);
+        }
     }
 
     @Override
@@ -119,6 +133,16 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         if (NCreateTime != null) {
             stmt.bindString(6, NCreateTime);
         }
+ 
+        String NBuyName = entity.getNBuyName();
+        if (NBuyName != null) {
+            stmt.bindString(7, NBuyName);
+        }
+ 
+        String NAddrName = entity.getNAddrName();
+        if (NAddrName != null) {
+            stmt.bindString(8, NAddrName);
+        }
     }
 
     @Override
@@ -134,7 +158,9 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // Ntime
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // NDetail
             cursor.getInt(offset + 4), // NMoodLocInt
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // NCreateTime
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // NCreateTime
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // NBuyName
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7) // NAddrName
         );
         return entity;
     }
@@ -147,6 +173,8 @@ public class NoteBeanDao extends AbstractDao<NoteBean, Long> {
         entity.setNDetail(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
         entity.setNMoodLocInt(cursor.getInt(offset + 4));
         entity.setNCreateTime(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setNBuyName(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setNAddrName(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
      }
     
     @Override
