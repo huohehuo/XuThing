@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.fangzuo.assist.Dao.AddrBean;
 import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.Utils.LocDataUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -36,7 +37,7 @@ public class BaseDataAddrRyAdapter extends RecyclerArrayAdapter<AddrBean> {
         private TextView name;
         private TextView time;
         public MarkHolder(ViewGroup parent) {
-            super(parent, R.layout.item_base_data);
+            super(parent, R.layout.item_base_data_addr);
             name= $(R.id.tv_name);
             time= $(R.id.tv_time);
         }
@@ -45,7 +46,7 @@ public class BaseDataAddrRyAdapter extends RecyclerArrayAdapter<AddrBean> {
         public void setData(AddrBean data) {
             super.setData(data);
             name.setText(data.FName);
-            time.setText(data.FCreateData);
+            time.setText(LocDataUtil.checkNoteBean4Addr(data.FName)+"");
         }
     }
 //

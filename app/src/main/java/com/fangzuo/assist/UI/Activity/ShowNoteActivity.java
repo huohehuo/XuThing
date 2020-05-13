@@ -113,7 +113,7 @@ public class ShowNoteActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_add:
-                if (!"".equals(edName.getText().toString())){
+//                if (!"".equals(edName.getText().toString())){
                     noteBean.NTitle = edName.getText().toString();
                     noteBean.NDetail = edDetail.getText().toString();
                     noteBean.Ntime = tvTime.getText().toString();
@@ -121,9 +121,9 @@ public class ShowNoteActivity extends BaseActivity {
                     noteBean.NAddrName = spAddrUIDlg.getDataName();
                     noteBeanDao.update(noteBean);
                     finish();
-                }else{
-                    finish();
-                }
+//                }else{
+//                    finish();
+//                }
                 break;
             case R.id.tv_time:
                 datePicker(tvTime);

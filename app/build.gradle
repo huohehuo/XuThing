@@ -54,7 +54,7 @@ android {
 }
 
 greendao {
-    schemaVersion 23
+    schemaVersion 25
     daoPackage 'com.fangzuo.greendao.gen'
     targetGenDir 'src/main/java'
 }
@@ -101,4 +101,5 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
     implementation 'com.haibin:calendarview:3.6.6'
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
+    implementation files('libs/tess-two.tesseract3.01-leptonica1.68-LibJPEG6b.jar')
 }

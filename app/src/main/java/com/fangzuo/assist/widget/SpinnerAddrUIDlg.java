@@ -243,7 +243,7 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
 //            }
 //        } else {
         if (isAddnull){
-            container.add(new AddrBean(0l,"","","","",""));
+            container.add(new AddrBean(0l,"","","","","",""));
             container.addAll(listData);
         }else{
             container.addAll(listData);

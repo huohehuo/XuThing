@@ -17,6 +17,7 @@ import com.fangzuo.assist.ABase.BaseFragment;
 import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Activity.BaseDataActivity;
+import com.fangzuo.assist.UI.Activity.ScanTestActivity;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.greendao.gen.NoteBeanDao;
@@ -178,6 +179,7 @@ public class OwnFragment extends BaseFragment {
                 BaseDataActivity.start(mContext);
                 break;
             case R.id.ll_cloud:
+                ScanTestActivity.start(mContext);
                 break;
         }
     }

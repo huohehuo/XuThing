@@ -55,12 +55,12 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
         @Override
         public void setData(NoteBean data) {
             super.setData(data);
-            name.setText(data.NTitle);
+            name.setText(data.NBuyName);
             time.setText(data.Ntime);
             if (null==data.NDetail || "".equals(data.NDetail)){
                 detail.setVisibility(View.GONE);
             }else{
-                detail.setText(data.NBuyName+"__"+data.NAddrName);
+                detail.setText(data.NDetail);
             }
 //            Glide.with(getContext())
 //                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))

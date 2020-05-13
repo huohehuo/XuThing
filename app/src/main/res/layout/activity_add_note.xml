@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content">
 
                 <EditText
+                    android:visibility="gone"
                     android:id="@+id/ed_name"
                     android:selectAllOnFocus="true"
                     android:layout_width="match_parent"

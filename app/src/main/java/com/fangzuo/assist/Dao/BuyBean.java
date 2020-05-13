@@ -11,6 +11,7 @@ import org.greenrobot.greendao.annotation.Id;
 public class BuyBean {
     @Id(autoincrement = true)
     public Long id;
+    public String FID;//唯一标识
     public String FName;//名称
     public String FCreateData;//创建日期
     public String FIsCloud;//是否备份云端
@@ -19,16 +20,23 @@ public class BuyBean {
         FName = name;
         FCreateData = data;
     }
+    public BuyBean(String name,String data,String fid){
+        FName = name;
+        FCreateData = data;
+        FID = fid;
+    }
 
-    @Generated(hash = 1124113276)
-    public BuyBean(Long id, String FName, String FCreateData, String FIsCloud,
-            String FUseNum) {
+    @Generated(hash = 481464502)
+    public BuyBean(Long id, String FID, String FName, String FCreateData,
+            String FIsCloud, String FUseNum) {
         this.id = id;
+        this.FID = FID;
         this.FName = FName;
         this.FCreateData = FCreateData;
         this.FIsCloud = FIsCloud;
         this.FUseNum = FUseNum;
     }
+
     @Generated(hash = 1442794524)
     public BuyBean() {
     }
@@ -61,6 +69,14 @@ public class BuyBean {
     }
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getFID() {
+        return this.FID;
+    }
+
+    public void setFID(String FID) {
+        this.FID = FID;
     }
 
 }

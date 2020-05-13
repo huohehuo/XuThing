@@ -140,7 +140,6 @@ public class CommonUtil {
         String str = format.format(curDate);
         return str;
     }
-
     public static String getTimeLong(boolean b) {
         @SuppressLint("SimpleDateFormat") SimpleDateFormat format = new SimpleDateFormat(b ? "yyyy-MM-dd-HH-mm-ss" : "yyyyMMddHHmmss");
         Date curDate = new Date();

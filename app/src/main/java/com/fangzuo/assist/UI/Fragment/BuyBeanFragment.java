@@ -22,6 +22,8 @@ import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.assist.Utils.LocDataUtil;
+import com.fangzuo.assist.Utils.Toast;
 import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -34,13 +36,13 @@ import butterknife.OnClick;
 public class BuyBeanFragment extends BaseFragment {
     @BindView(R.id.ry_list)
     EasyRecyclerView ryList;
-    BaseDataRyAdapter adapter;
     @BindView(R.id.ed_name)
     EditText edName;
     @BindView(R.id.btn_add)
     Button btnAdd;
+    BaseDataRyAdapter adapter;
     private FragmentActivity mContext;
-    private BuyBeanDao noteBeanDao;
+    private BuyBeanDao buyBeanDao;
 
     public BuyBeanFragment() {
     }
@@ -52,7 +54,7 @@ public class BuyBeanFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_base_data, container, false);
         ButterKnife.bind(this, v);
         mContext = getActivity();
-        noteBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getBuyBeanDao();
+        buyBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getBuyBeanDao();
 
         return v;
     }
@@ -64,18 +66,13 @@ public class BuyBeanFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, noteBeanDao.loadAll().size() + ""));
-//        if (null == ryList)return;
-//        if (Hawk.get(Info.ChangeView,0)==0){
-//            adapter = new HomeRyAdapter(mContext,0);
-//        }else{
+        EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, buyBeanDao.loadAll().size() + ""));
         adapter = new BaseDataRyAdapter(mContext);
-//        }
         ryList.setAdapter(adapter);
         ryList.setLayoutManager(new LinearLayoutManager(mContext));
         ryList.setRefreshing(true);
         adapter.clear();
-        adapter.addAll(noteBeanDao.queryBuilder().orderDesc(BuyBeanDao.Properties.Id).build().list());
+        adapter.addAll(buyBeanDao.queryBuilder().orderDesc(BuyBeanDao.Properties.Id).build().list());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
 
@@ -93,7 +90,7 @@ public class BuyBeanFragment extends BaseFragment {
 //        ryList.setLayoutManager(new LinearLayoutManager(mContext));
 //        ryList.setRefreshing(true);
 //        adapter.clear();
-//        adapter.addAll(noteBeanDao.loadAll());
+//        adapter.addAll(buyBeanDao.loadAll());
 //        ryList.setRefreshing(false);
 
 
@@ -116,8 +113,7 @@ public class BuyBeanFragment extends BaseFragment {
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                noteBeanDao.deleteInTx(adapter.getAllData().get(position));
-                                initData();
+                                delBuyBean(position);
                             }
                         })
                         .create().show();
@@ -136,25 +132,31 @@ public class BuyBeanFragment extends BaseFragment {
     protected void initListener() {
 
     }
-
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (null != noteBeanDao) {
-                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, noteBeanDao.loadAll().size() + ""));
-            }
-//            adapter.clear();
-//            adapter.addAll(noteBeanDao.loadAll());
-//            initData();
-            //相当于Fragment的onResume
-        } else {
-            //相当于Fragment的onPause
+    //删除数据
+    private void delBuyBean(int position){
+        BuyBean buyBean = adapter.getAllData().get(position);
+        if (LocDataUtil.checkNoteBean(buyBean.FName)>0){
+            Toast.showText(mContext,"该种类存在数据，不允许深处");
+            return;
         }
-    }
+        buyBeanDao.deleteInTx(buyBean);
+        Toast.showText(mContext,"删除成功");
+        initData();
 
-    @Override
-    protected void OnReceive(String barCode) {
+    }
+    //添加新数据
+    private void addBuyBean(){
+        if ("".equals(edName.getText().toString())){
+            Toast.showText(mContext,"请输入添加的种类");
+            return;
+        }
+        if (LocDataUtil.checkBuyBean(edName.getText().toString())){
+            Toast.showText(mContext,"该种类已存在，不能重复添加");
+            return;
+        }
+        buyBeanDao.insert(new BuyBean(edName.getText().toString(), CommonUtil.getTime(true), CommonUtil.getTimeLong(false)));
+        edName.setText("");
+        initData();
 
     }
 
@@ -165,9 +167,30 @@ public class BuyBeanFragment extends BaseFragment {
             case R.id.ed_name:
                 break;
             case R.id.btn_add:
-                noteBeanDao.insert(new BuyBean(edName.getText().toString(), CommonUtil.getTime(true)));
-                initData();
+                addBuyBean();
                 break;
         }
+    }
+
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (null != buyBeanDao) {
+                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, buyBeanDao.loadAll().size() + ""));
+            }
+//            adapter.clear();
+//            adapter.addAll(buyBeanDao.loadAll());
+//            initData();
+            //相当于Fragment的onResume
+        } else {
+            //相当于Fragment的onPause
+        }
+    }
+
+    @Override
+    protected void OnReceive(String barCode) {
+
     }
 }

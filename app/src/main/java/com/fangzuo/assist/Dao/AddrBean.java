@@ -11,6 +11,7 @@ import org.greenrobot.greendao.annotation.Id;
 public class AddrBean {
     @Id(autoincrement = true)
     public Long id;
+    public String FID;//名称
     public String FName;//名称
     public String FCreateData;//创建日期
     public String FIsCloud;//是否备份云端
@@ -20,10 +21,16 @@ public class AddrBean {
         FName = name;
         FCreateData = data;
     }
-    @Generated(hash = 2012103066)
-    public AddrBean(Long id, String FName, String FCreateData, String FIsCloud,
-            String FUseNum, String FMapID) {
+    public AddrBean(String name, String data,String fid){
+        FName = name;
+        FCreateData = data;
+        FID = fid;
+    }
+    @Generated(hash = 181084517)
+    public AddrBean(Long id, String FID, String FName, String FCreateData,
+            String FIsCloud, String FUseNum, String FMapID) {
         this.id = id;
+        this.FID = FID;
         this.FName = FName;
         this.FCreateData = FCreateData;
         this.FIsCloud = FIsCloud;
@@ -68,6 +75,12 @@ public class AddrBean {
     }
     public void setFMapID(String FMapID) {
         this.FMapID = FMapID;
+    }
+    public String getFID() {
+        return this.FID;
+    }
+    public void setFID(String FID) {
+        this.FID = FID;
     }
 
 }

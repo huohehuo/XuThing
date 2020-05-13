@@ -24,6 +24,8 @@ import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.assist.Utils.LocDataUtil;
+import com.fangzuo.assist.Utils.Toast;
 import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
 import com.fangzuo.greendao.gen.AddrBeanDao;
 import com.fangzuo.greendao.gen.BuyBeanDao;
@@ -44,7 +46,7 @@ public class AddrBeanFragment extends BaseFragment {
     Button btnAdd;
     BaseDataAddrRyAdapter adapter;
     private FragmentActivity mContext;
-    private AddrBeanDao noteBeanDao;
+    private AddrBeanDao addrBeanDao;
 
     public AddrBeanFragment() {
     }
@@ -56,7 +58,7 @@ public class AddrBeanFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_base_data, container, false);
         ButterKnife.bind(this, v);
         mContext = getActivity();
-        noteBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getAddrBeanDao();
+        addrBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getAddrBeanDao();
 
         return v;
     }
@@ -78,7 +80,7 @@ public class AddrBeanFragment extends BaseFragment {
         ryList.setLayoutManager(new LinearLayoutManager(mContext));
         ryList.setRefreshing(true);
         adapter.clear();
-        adapter.addAll(noteBeanDao.queryBuilder().orderDesc(AddrBeanDao.Properties.Id).build().list());
+        adapter.addAll(addrBeanDao.queryBuilder().orderDesc(AddrBeanDao.Properties.Id).build().list());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
 
@@ -96,7 +98,7 @@ public class AddrBeanFragment extends BaseFragment {
 //        ryList.setLayoutManager(new LinearLayoutManager(mContext));
 //        ryList.setRefreshing(true);
 //        adapter.clear();
-//        adapter.addAll(noteBeanDao.loadAll());
+//        adapter.addAll(addrBeanDao.loadAll());
 //        ryList.setRefreshing(false);
 
 
@@ -119,8 +121,7 @@ public class AddrBeanFragment extends BaseFragment {
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                noteBeanDao.deleteInTx(adapter.getAllData().get(position));
-                                initData();
+                                delBuyBean(position);
                             }
                         })
                         .create().show();
@@ -139,20 +140,32 @@ public class AddrBeanFragment extends BaseFragment {
     protected void initListener() {
 
     }
-    @Override
-    public void setUserVisibleHint(boolean isVisibleToUser) {
-        super.setUserVisibleHint(isVisibleToUser);
-        if (isVisibleToUser) {
-            if (null !=noteBeanDao){
-                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, noteBeanDao.loadAll().size()+""));
-            }
-//            adapter.clear();
-//            adapter.addAll(noteBeanDao.loadAll());
-//            initData();
-            //相当于Fragment的onResume
-        } else {
-            //相当于Fragment的onPause
+    //删除数据
+    private void delBuyBean(int position){
+        AddrBean buyBean = adapter.getAllData().get(position);
+        if (LocDataUtil.checkNoteBean4Addr(buyBean.FName)>0){
+            Toast.showText(mContext,"该种类存在数据，不允许删除");
+            return;
         }
+        addrBeanDao.deleteInTx(buyBean);
+        Toast.showText(mContext,"删除成功");
+        initData();
+
+    }
+    //添加新数据
+    private void addAddrBean(){
+        if ("".equals(edName.getText().toString())){
+            Toast.showText(mContext,"请输入添加的种类");
+            return;
+        }
+        if (LocDataUtil.checkAddrBean(edName.getText().toString())){
+            Toast.showText(mContext,"该种类已存在，不能重复添加");
+            return;
+        }
+        addrBeanDao.insert(new AddrBean(edName.getText().toString(), CommonUtil.getTime(true), CommonUtil.getTimeLong(false)));
+        edName.setText("");
+        initData();
+
     }
     @OnClick({R.id.ed_name, R.id.btn_add})
     public void onViewClicked(View view) {
@@ -160,8 +173,7 @@ public class AddrBeanFragment extends BaseFragment {
             case R.id.ed_name:
                 break;
             case R.id.btn_add:
-                noteBeanDao.insert(new AddrBean(edName.getText().toString(), CommonUtil.getTime(true)));
-                initData();
+                addAddrBean();
                 break;
         }
     }
@@ -170,7 +182,21 @@ public class AddrBeanFragment extends BaseFragment {
 
     }
 
-
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        if (isVisibleToUser) {
+            if (null !=addrBeanDao){
+                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.BaseData_Tip, addrBeanDao.loadAll().size()+""));
+            }
+//            adapter.clear();
+//            adapter.addAll(addrBeanDao.loadAll());
+//            initData();
+            //相当于Fragment的onResume
+        } else {
+            //相当于Fragment的onPause
+        }
+    }
     @Override
     public void onDestroyView() {
         super.onDestroyView();

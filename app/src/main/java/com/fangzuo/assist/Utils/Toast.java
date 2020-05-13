@@ -19,7 +19,7 @@ public class Toast {
             public void run() {
                 toast.cancel();
             }
-        },600);
+        },2000);
     }
     public static void showText(String text){
         final android.widget.Toast toast = android.widget.Toast.makeText(App.getContext(), text, android.widget.Toast.LENGTH_SHORT);

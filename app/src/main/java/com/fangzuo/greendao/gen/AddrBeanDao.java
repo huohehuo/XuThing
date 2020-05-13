@@ -25,11 +25,12 @@ public class AddrBeanDao extends AbstractDao<AddrBean, Long> {
      */
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
-        public final static Property FName = new Property(1, String.class, "FName", false, "FNAME");
-        public final static Property FCreateData = new Property(2, String.class, "FCreateData", false, "FCREATE_DATA");
-        public final static Property FIsCloud = new Property(3, String.class, "FIsCloud", false, "FIS_CLOUD");
-        public final static Property FUseNum = new Property(4, String.class, "FUseNum", false, "FUSE_NUM");
-        public final static Property FMapID = new Property(5, String.class, "FMapID", false, "FMAP_ID");
+        public final static Property FID = new Property(1, String.class, "FID", false, "FID");
+        public final static Property FName = new Property(2, String.class, "FName", false, "FNAME");
+        public final static Property FCreateData = new Property(3, String.class, "FCreateData", false, "FCREATE_DATA");
+        public final static Property FIsCloud = new Property(4, String.class, "FIsCloud", false, "FIS_CLOUD");
+        public final static Property FUseNum = new Property(5, String.class, "FUseNum", false, "FUSE_NUM");
+        public final static Property FMapID = new Property(6, String.class, "FMapID", false, "FMAP_ID");
     }
 
 
@@ -46,11 +47,12 @@ public class AddrBeanDao extends AbstractDao<AddrBean, Long> {
         String constraint = ifNotExists? "IF NOT EXISTS ": "";
         db.execSQL("CREATE TABLE " + constraint + "\"ADDR_BEAN\" (" + //
                 "\"_id\" INTEGER PRIMARY KEY AUTOINCREMENT ," + // 0: id
-                "\"FNAME\" TEXT," + // 1: FName
-                "\"FCREATE_DATA\" TEXT," + // 2: FCreateData
-                "\"FIS_CLOUD\" TEXT," + // 3: FIsCloud
-                "\"FUSE_NUM\" TEXT," + // 4: FUseNum
-                "\"FMAP_ID\" TEXT);"); // 5: FMapID
+                "\"FID\" TEXT," + // 1: FID
+                "\"FNAME\" TEXT," + // 2: FName
+                "\"FCREATE_DATA\" TEXT," + // 3: FCreateData
+                "\"FIS_CLOUD\" TEXT," + // 4: FIsCloud
+                "\"FUSE_NUM\" TEXT," + // 5: FUseNum
+                "\"FMAP_ID\" TEXT);"); // 6: FMapID
     }
 
     /** Drops the underlying database table. */
@@ -68,29 +70,34 @@ public class AddrBeanDao extends AbstractDao<AddrBean, Long> {
             stmt.bindLong(1, id);
         }
  
+        String FID = entity.getFID();
+        if (FID != null) {
+            stmt.bindString(2, FID);
+        }
+ 
         String FName = entity.getFName();
         if (FName != null) {
-            stmt.bindString(2, FName);
+            stmt.bindString(3, FName);
         }
  
         String FCreateData = entity.getFCreateData();
         if (FCreateData != null) {
-            stmt.bindString(3, FCreateData);
+            stmt.bindString(4, FCreateData);
         }
  
         String FIsCloud = entity.getFIsCloud();
         if (FIsCloud != null) {
-            stmt.bindString(4, FIsCloud);
+            stmt.bindString(5, FIsCloud);
         }
  
         String FUseNum = entity.getFUseNum();
         if (FUseNum != null) {
-            stmt.bindString(5, FUseNum);
+            stmt.bindString(6, FUseNum);
         }
  
         String FMapID = entity.getFMapID();
         if (FMapID != null) {
-            stmt.bindString(6, FMapID);
+            stmt.bindString(7, FMapID);
         }
     }
 
@@ -103,29 +110,34 @@ public class AddrBeanDao extends AbstractDao<AddrBean, Long> {
             stmt.bindLong(1, id);
         }
  
+        String FID = entity.getFID();
+        if (FID != null) {
+            stmt.bindString(2, FID);
+        }
+ 
         String FName = entity.getFName();
         if (FName != null) {
-            stmt.bindString(2, FName);
+            stmt.bindString(3, FName);
         }
  
         String FCreateData = entity.getFCreateData();
         if (FCreateData != null) {
-            stmt.bindString(3, FCreateData);
+            stmt.bindString(4, FCreateData);
         }
  
         String FIsCloud = entity.getFIsCloud();
         if (FIsCloud != null) {
-            stmt.bindString(4, FIsCloud);
+            stmt.bindString(5, FIsCloud);
         }
  
         String FUseNum = entity.getFUseNum();
         if (FUseNum != null) {
-            stmt.bindString(5, FUseNum);
+            stmt.bindString(6, FUseNum);
         }
  
         String FMapID = entity.getFMapID();
         if (FMapID != null) {
-            stmt.bindString(6, FMapID);
+            stmt.bindString(7, FMapID);
         }
     }
 
@@ -138,11 +150,12 @@ public class AddrBeanDao extends AbstractDao<AddrBean, Long> {
     public AddrBean readEntity(Cursor cursor, int offset) {
         AddrBean entity = new AddrBean( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
-            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // FName
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // FCreateData
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // FIsCloud
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // FUseNum
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5) // FMapID
+            cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // FID
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // FName
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // FCreateData
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // FIsCloud
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // FUseNum
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6) // FMapID
         );
         return entity;
     }
@@ -150,11 +163,12 @@ public class AddrBeanDao extends AbstractDao<AddrBean, Long> {
     @Override
     public void readEntity(Cursor cursor, AddrBean entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
-        entity.setFName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setFCreateData(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setFIsCloud(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setFUseNum(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setFMapID(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setFID(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
+        entity.setFName(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setFCreateData(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setFIsCloud(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setFUseNum(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setFMapID(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
      }
     
     @Override

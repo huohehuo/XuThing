@@ -13,6 +13,7 @@ import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.Info;
+import com.fangzuo.assist.Utils.LocDataUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.orhanobut.hawk.Hawk;
@@ -52,7 +53,7 @@ public class BaseDataRyAdapter extends RecyclerArrayAdapter<BuyBean> {
         public void setData(BuyBean data) {
             super.setData(data);
             name.setText(data.FName);
-            time.setText(data.FCreateData);
+            time.setText(LocDataUtil.checkNoteBean(data.FName)+"");
         }
     }
 //

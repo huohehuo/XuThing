@@ -253,7 +253,7 @@ public class SpinnerBuyUIDlg extends RelativeLayout {
 //            }
 //        } else {
         if (isAddnull){
-            container.add(new BuyBean(0l,"","","",""));
+            container.add(new BuyBean(0l,"","","","",""));
             container.addAll(listData);
         }else{
             container.addAll(listData);
