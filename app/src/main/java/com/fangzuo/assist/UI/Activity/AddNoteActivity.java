@@ -22,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseActivity;
+import com.fangzuo.assist.Adapter.BaseDataRyAdapter;
 import com.fangzuo.assist.Adapter.HomeRyAdapter;
 import com.fangzuo.assist.Adapter.MoodRyAdapter;
 import com.fangzuo.assist.Beans.MoodBean;
@@ -36,6 +37,7 @@ import com.fangzuo.assist.widget.SpinnerAddrUIDlg;
 import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
 import com.fangzuo.assist.widget.piccut.CropImageActivity;
 import com.fangzuo.assist.widget.piccut.SelectPhotoDialog;
+import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -61,9 +63,13 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
     SpinnerBuyUIDlg spBuyUIDlg;
     @BindView(R.id.sp_addr)
     SpinnerAddrUIDlg spAddrUIDlg;
+    @BindView(R.id.ry_list)
+    EasyRecyclerView ryList;
 
+    BaseDataRyAdapter adapter;
     private NoteBeanDao noteBeanDao;
     private NoteBean noteBean;
+    private BuyBeanDao buyBeanDao;
     public static String baseLoc = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
 
     @Override
@@ -74,6 +80,7 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         getPermisssion();
         noteBean = new NoteBean();
         noteBeanDao = daoSession.getNoteBeanDao();
+        buyBeanDao = daoSession.getBuyBeanDao();
 
     }
 
@@ -82,6 +89,15 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         tvTime.setText(CommonUtil.getTime(true));
         spBuyUIDlg.setAutoSelection("","",false);
         spAddrUIDlg.setAutoSelection("","",false);
+
+        adapter = new BaseDataRyAdapter(mContext);
+        ryList.setAdapter(adapter);
+        ryList.setLayoutManager(new LinearLayoutManager(mContext));
+        ryList.setRefreshing(true);
+        adapter.clear();
+        adapter.addAll(buyBeanDao.queryBuilder().orderDesc(BuyBeanDao.Properties.Id).build().list());
+        adapter.notifyDataSetChanged();
+        ryList.setRefreshing(false);
     }
 
     @Override
