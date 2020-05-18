@@ -36,10 +36,12 @@ public class ShowNoteActivity extends BaseActivity {
     EditText edName;
     @BindView(R.id.ed_detail)
     EditText edDetail;
-    @BindView(R.id.sp_buy)
-    SpinnerBuyUIDlg spBuyUIDlg;
+//    @BindView(R.id.sp_buy)
+//    SpinnerBuyUIDlg spBuyUIDlg;
     @BindView(R.id.sp_addr)
     SpinnerAddrUIDlg spAddrUIDlg;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     private NoteBeanDao noteBeanDao;
     private NoteBean noteBean;
     private String notId;
@@ -67,7 +69,8 @@ public class ShowNoteActivity extends BaseActivity {
             edName.setText(noteBean.NTitle);
             tvTime.setText(noteBean.Ntime);
             edDetail.setText(noteBean.NDetail);
-            spBuyUIDlg.setAutoSelection("",noteBean.NBuyName,false);
+            tvTitle.setText(noteBean.NBuyName);
+//            spBuyUIDlg.setAutoSelection("",noteBean.NBuyName,false);
             spAddrUIDlg.setAutoSelection("",noteBean.NAddrName,false);
         }
 
@@ -117,7 +120,7 @@ public class ShowNoteActivity extends BaseActivity {
                     noteBean.NTitle = edName.getText().toString();
                     noteBean.NDetail = edDetail.getText().toString();
                     noteBean.Ntime = tvTime.getText().toString();
-                    noteBean.NBuyName = spBuyUIDlg.getDataName();
+//                    noteBean.NBuyName = spBuyUIDlg.getDataName();
                     noteBean.NAddrName = spAddrUIDlg.getDataName();
                     noteBeanDao.update(noteBean);
                     finish();

@@ -1,5 +1,6 @@
 package com.fangzuo.assist.UI.Activity;
 
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -9,21 +10,32 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseActivity;
+import com.fangzuo.assist.Adapter.BaseDataRyAdapter;
 import com.fangzuo.assist.Adapter.MenuFragmentAdapter;
+import com.fangzuo.assist.Adapter.ProductselectAdapter1;
 import com.fangzuo.assist.UI.Fragment.HomeFragment;
 import com.fangzuo.assist.UI.Fragment.OwnFragment;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Fragment.RiliFragment;
+import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.DaoSession;
+import com.jude.easyrecyclerview.EasyRecyclerView;
+import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import org.greenrobot.greendao.async.AsyncSession;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import java.util.ArrayList;
 
@@ -71,12 +83,12 @@ public class MenuActivity extends BaseActivity {
     private MenuActivity mContext;
     private FragmentTransaction ft;
     private Fragment curFragment;
-    private DaoSession daoSession;
     private AsyncSession asyncSession;
     private AsyncSession asyncSession2;
     private long nowTime;
     private int size;
 
+    private BuyBeanDao buyBeanDao;
 
 
 
@@ -85,6 +97,7 @@ public class MenuActivity extends BaseActivity {
         setContentView(R.layout.activity_menu);
         mContext = this;
         ButterKnife.bind(this);
+        buyBeanDao = daoSession.getBuyBeanDao();
         initBar();
         initFragments();
     }
@@ -103,6 +116,37 @@ public class MenuActivity extends BaseActivity {
 //        tvUser.setText("当前用户:" + ShareUtil.getInstance(mContext).getUserName());
 //        ivPurchase.setImageResource(R.mipmap.purchase);
 //        tvPurchase.setTextColor(tvcolor);
+
+        //[["FHTZD000001",100726.0,"电子阅读器BOOX Nova Pro 前壳玻璃三合一黑色+后壳蓝色 (BOOX丝印，RK3288_V1.1_C，2+32G，2800mha，中文版，新贴纸)","OPC0587R",101032.0,100001.0,100001.0,1.0,"SAL_SaleOrder","SaleOrder-DeliveryNotice"]]
+        String string = "[[\"FHTZD000001\",100726.0,\"电子阅读器BOOX Nova Pro 前壳玻璃三合一黑色+后壳蓝色 (BOOX丝印，RK3288_V1.1_C，2+32G，2800mha，中文版，新贴纸)\",\"OPC0587R\",101032.0,100001.0,100001.0,1.0,\"SAL_SaleOrder\",\"SaleOrder-DeliveryNotice\"]]";
+        setData(string);
+
+
+    }
+    private void setData(String object){
+        JSONArray jsonArray = null;
+        try {
+            Lg.e("转换",gson.toJsonTree(object));
+            Lg.e("转换",gson.toJson(object));
+            jsonArray = new JSONArray(object);
+            Lg.e("得到"+jsonArray);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONArray json = new JSONArray(jsonArray.get(i).toString());
+//                PushDownSub dpt = new PushDownSub();
+//                dpt.FNumber = json.get(0).toString();
+//                dpt.FName = json.get(1).toString();
+//                dpt.FNumber = json.get(2).toString();
+//                dpt.FOrg = json.get(3).toString();
+//                dpt.FISSTOCK = json.get(4).toString();
+//                department.add(dpt);
+
+                Lg.e("组合成"+json);
+//                adapter.add(dpt);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Lg.e("明细",e.getMessage());
+        }
     }
 
 
@@ -198,12 +242,36 @@ public class MenuActivity extends BaseActivity {
         return super.onTouchEvent(event);
     }
 
-
+    AlertDialog alertDialog;
+    private void selectAdd(){
+        AlertDialog.Builder ab = new AlertDialog.Builder(mContext);
+        ab.setTitle("请选择项目");
+        View v = LayoutInflater.from(mContext).inflate(R.layout.menu_add, null);
+        EasyRecyclerView lv = v.findViewById(R.id.ry_list);
+        final BaseDataRyAdapter adapter = new BaseDataRyAdapter(mContext);
+        lv.setLayoutManager(new LinearLayoutManager(mContext));
+        adapter.addAll(buyBeanDao.queryBuilder().orderDesc(BuyBeanDao.Properties.Id).build().list());
+        lv.setAdapter(adapter);
+        ab.setView(v);
+        adapter.setOnItemClickListener(new RecyclerArrayAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+                Lg.e("点击",adapter.getAllData().get(position));
+                AddNoteActivity.start(mContext,adapter.getAllData().get(position).FName);
+                alertDialog.dismiss();
+            }
+        });
+//        ab.setMessage(msg);
+        ab.setPositiveButton("取消",null);
+        alertDialog = ab.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
     @OnClick({R.id.iv_add, R.id.ll1,R.id.bottom_btn_purchase,R.id.bottom_btn_sale,R.id.bottom_btn_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_add:
-                AddNoteActivity.start(mContext);
+                selectAdd();
                 break;
             case R.id.ll1:
                 break;

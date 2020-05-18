@@ -24,6 +24,7 @@ import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
 import com.fangzuo.assist.Beans.SettingList;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.UI.Activity.AddNoteActivity;
 import com.fangzuo.assist.UI.Activity.ShowNoteActivity;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.EventBusInfoCode;
@@ -32,6 +33,7 @@ import com.fangzuo.assist.Utils.GetSettingList;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.greendao.gen.BuyAtBeanDao;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
@@ -47,6 +49,7 @@ public class HomeFragment extends BaseFragment {
     HomeRyAdapter adapter;
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
+    private BuyAtBeanDao buyAtBeanDao;
 
     public HomeFragment() {
     }
@@ -59,6 +62,7 @@ public class HomeFragment extends BaseFragment {
         ButterKnife.bind(this, v);
         mContext = getActivity();
         noteBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getNoteBeanDao();
+        buyAtBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getBuyAtBeanDao();
 
         return v;
     }
@@ -109,7 +113,7 @@ public class HomeFragment extends BaseFragment {
             public void onItemClick(int position) {
                 NoteBean thisNo = adapter.getAllData().get(position);
                 Lg.e("点击",thisNo);
-                ShowNoteActivity.start(mContext,thisNo.id+"");
+                AddNoteActivity.start(mContext,thisNo.NBuyName+"");
 
             }
         });
@@ -121,6 +125,7 @@ public class HomeFragment extends BaseFragment {
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                buyAtBeanDao.deleteInTx(buyAtBeanDao.queryBuilder().where(BuyAtBeanDao.Properties.FBuyName.eq(adapter.getAllData().get(position).getNBuyName())).build().list());
                                 noteBeanDao.deleteInTx(adapter.getAllData().get(position));
                                 initData();
                             }

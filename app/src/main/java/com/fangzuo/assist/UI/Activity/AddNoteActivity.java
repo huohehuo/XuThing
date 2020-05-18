@@ -3,7 +3,9 @@ package com.fangzuo.assist.UI.Activity;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -23,9 +25,12 @@ import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseActivity;
 import com.fangzuo.assist.Adapter.BaseDataRyAdapter;
+import com.fangzuo.assist.Adapter.BuyAtRyAdapter;
 import com.fangzuo.assist.Adapter.HomeRyAdapter;
 import com.fangzuo.assist.Adapter.MoodRyAdapter;
 import com.fangzuo.assist.Beans.MoodBean;
+import com.fangzuo.assist.Dao.BuyAtBean;
+import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
@@ -37,6 +42,7 @@ import com.fangzuo.assist.widget.SpinnerAddrUIDlg;
 import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
 import com.fangzuo.assist.widget.piccut.CropImageActivity;
 import com.fangzuo.assist.widget.piccut.SelectPhotoDialog;
+import com.fangzuo.greendao.gen.BuyAtBeanDao;
 import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -55,21 +61,26 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class AddNoteActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     @BindView(R.id.tv_time)
     TextView tvTime;
+    @BindView(R.id.tv_title)
+    TextView tvTitle;
     @BindView(R.id.ed_detail)
     EditText edDetail;
     @BindView(R.id.ed_name)
     EditText edName;
-    @BindView(R.id.sp_buy)
-    SpinnerBuyUIDlg spBuyUIDlg;
+//    @BindView(R.id.sp_buy)
+//    SpinnerBuyUIDlg spBuyUIDlg;
     @BindView(R.id.sp_addr)
     SpinnerAddrUIDlg spAddrUIDlg;
     @BindView(R.id.ry_list)
     EasyRecyclerView ryList;
 
-    BaseDataRyAdapter adapter;
+    BuyAtRyAdapter adapter;
     private NoteBeanDao noteBeanDao;
     private NoteBean noteBean;
     private BuyBeanDao buyBeanDao;
+    private BuyBean buyBean;
+    private BuyAtBeanDao buyAtBeanDao;
+    private String buyBeanName;
     public static String baseLoc = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator;
 
     @Override
@@ -81,28 +92,50 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         noteBean = new NoteBean();
         noteBeanDao = daoSession.getNoteBeanDao();
         buyBeanDao = daoSession.getBuyBeanDao();
-
+        buyAtBeanDao = daoSession.getBuyAtBeanDao();
+        Intent in = getIntent();
+        buyBeanName = in.getStringExtra("buybean");
+        tvTitle.setText(buyBeanName);
     }
 
     @Override
     protected void initData() {
         tvTime.setText(CommonUtil.getTime(true));
-        spBuyUIDlg.setAutoSelection("","",false);
+//        spBuyUIDlg.setAutoSelection("","",false);
         spAddrUIDlg.setAutoSelection("","",false);
+        buyBean = buyBeanDao.queryBuilder().where(BuyBeanDao.Properties.FName.eq(buyBeanName)).build().list().get(0);
 
-        adapter = new BaseDataRyAdapter(mContext);
+        adapter = new BuyAtRyAdapter(mContext);
         ryList.setAdapter(adapter);
         ryList.setLayoutManager(new LinearLayoutManager(mContext));
-        ryList.setRefreshing(true);
+        initList();
+    }
+    private void initList(){
         adapter.clear();
-        adapter.addAll(buyBeanDao.queryBuilder().orderDesc(BuyBeanDao.Properties.Id).build().list());
+        ryList.setRefreshing(true);
+        adapter.addAll(buyAtBeanDao.queryBuilder().where(BuyAtBeanDao.Properties.FBuyName.eq(buyBeanName)).orderDesc(BuyAtBeanDao.Properties.Id).build().list());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
     }
 
     @Override
     protected void initListener() {
-
+        adapter.setOnItemLongClickListener(new RecyclerArrayAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(final int position) {
+                new AlertDialog.Builder(mContext)
+                        .setTitle("是否删除该条数据")
+                        .setPositiveButton("确认", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                buyAtBeanDao.deleteInTx(adapter.getAllData().get(position));
+                                initList();
+                            }
+                        })
+                        .create().show();
+                return true;
+            }
+        });
 
     }
 
@@ -111,9 +144,10 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
 
     }
 
-    public static void start(Context context) {
+    public static void start(Context context,String buybean) {
         Intent intent = new Intent(context, AddNoteActivity.class);
 //        intent.putExtra("activity", activity);
+        intent.putExtra("buybean", buybean);
 //        intent.putStringArrayListExtra("fid", fid);
         context.startActivity(intent);
     }
@@ -132,17 +166,31 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
     }
 
     private void saveNote(){
-        noteBean = new NoteBean();
+        //当本地不存在时
+        List<NoteBean> list = noteBeanDao.queryBuilder().where(NoteBeanDao.Properties.NBuyName.eq(buyBeanName)).build().list();
+        if (list.size()<=0){
+            noteBean = new NoteBean();
 //        noteBean.NTitle= edName.getText().toString();
-        noteBean.NDetail= edDetail.getText().toString();
-        noteBean.NBuyName= spBuyUIDlg.getDataName();
-        noteBean.NAddrName= spAddrUIDlg.getDataName();
-        noteBean.Ntime = tvTime.getText().toString();
-        noteBean.NCreateTime = CommonUtil.getTimeLong(true);
-        noteBeanDao.insert(noteBean);
-        Toast.showText(mContext, "添加成功");
+//            noteBean.NDetail= edDetail.getText().toString();
+            noteBean.NBuyName= buyBeanName;
+//            noteBean.NAddrName= spAddrUIDlg.getDataName();
+            noteBean.Ntime = tvTime.getText().toString();
+            noteBean.NCreateTime = CommonUtil.getTimeLong(true);
+            noteBeanDao.insert(noteBean);
+            Toast.showText(mContext, "添加成功");
+        }else{
+            NoteBean bean = list.get(0);
+            bean.Ntime = tvTime.getText().toString();
+            noteBeanDao.update(bean);
+        }
+        BuyAtBean buyAtBean = new BuyAtBean();
+        buyAtBean.FName = edDetail.getText().toString();
+        buyAtBean.setBuyBean(buyBean);
+        buyAtBean.setAddrBean(spAddrUIDlg.getData());
+        buyAtBean.FCreateData = CommonUtil.getTimeLong(true);
+        buyAtBeanDao.insert(buyAtBean);
         VibratorUtil.Vibrate(mContext, 200);
-        finish();
+        initList();
     }
 
 

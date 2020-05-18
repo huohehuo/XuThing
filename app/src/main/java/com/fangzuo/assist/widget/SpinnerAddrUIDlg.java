@@ -49,6 +49,7 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
     private String saveKeyString="";//用于保存数据的key
     private String employeeId="";
     private String employeeName="";
+    private AddrBean addrBean;
     private String T="人物：";     //3
     private boolean isAddnull=false;     //3
     private String stringOfEt="";//用于保存数据的key
@@ -100,6 +101,7 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
                 AddrBean employee = (AddrBean) adapter.getItem(i);
 //                employeeId = employee.FItemID;
                 employeeName = employee.FName;
+                addrBean = employee;
                 setTitleText(employeeName);
                 Lg.e("选中"+mText.getText().toString(),employee);
                 Hawk.put(saveKeyString,employee.FName);
@@ -212,6 +214,10 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
 
     public String getDataId() {
         return employeeId == null ? "" : employeeId;
+    }
+
+    public AddrBean getData() {
+        return addrBean;
     }
 
     public String getDataName() {

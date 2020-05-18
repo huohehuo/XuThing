@@ -65,13 +65,30 @@
             />
     </LinearLayout>
     <include layout="@layout/line_heng"/>
-    <com.fangzuo.assist.widget.SpinnerBuyUIDlg
-        android:id="@+id/sp_buy"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:manspinner_name="购买种类"
-        app:manspinner_size="20sp" />
-    <include layout="@layout/line_heng"/>
+        android:id="@+id/ll_click"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:orientation="horizontal">
+        <android.support.v7.widget.AppCompatTextView
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="20dp"
+            android:id="@+id/tv_title"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="38dp"
+            tools:text="自动长度"
+            android:textStyle="bold"/>
+        <!--<ImageView-->
+        <!--android:layout_margin="1dp"-->
+        <!--android:layout_width="40dp"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@mipmap/send"-->
+        <!--/>-->
+    </LinearLayout>
     <com.fangzuo.assist.widget.SpinnerAddrUIDlg
         android:id="@+id/sp_addr"
         android:layout_width="match_parent"
