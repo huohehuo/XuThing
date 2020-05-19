@@ -40,6 +40,7 @@ import com.fangzuo.assist.Utils.Toast;
 import com.fangzuo.assist.Utils.VibratorUtil;
 import com.fangzuo.assist.widget.SpinnerAddrUIDlg;
 import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
+import com.fangzuo.assist.widget.ViewNumber;
 import com.fangzuo.assist.widget.piccut.CropImageActivity;
 import com.fangzuo.assist.widget.piccut.SelectPhotoDialog;
 import com.fangzuo.greendao.gen.BuyAtBeanDao;
@@ -59,12 +60,10 @@ import butterknife.OnClick;
 import pub.devrel.easypermissions.EasyPermissions;
 
 public class AddNoteActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
-    @BindView(R.id.tv_time)
-    TextView tvTime;
     @BindView(R.id.tv_title)
     TextView tvTitle;
-    @BindView(R.id.ed_detail)
-    EditText edDetail;
+    @BindView(R.id.tv_num)
+    ViewNumber tvNum;
     @BindView(R.id.ed_name)
     EditText edName;
 //    @BindView(R.id.sp_buy)
@@ -100,7 +99,6 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
 
     @Override
     protected void initData() {
-        tvTime.setText(CommonUtil.getTime(true));
 //        spBuyUIDlg.setAutoSelection("","",false);
         spAddrUIDlg.setAutoSelection("","",false);
         buyBean = buyBeanDao.queryBuilder().where(BuyBeanDao.Properties.FName.eq(buyBeanName)).build().list().get(0);
@@ -153,14 +151,11 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
     }
 
 
-    @OnClick({R.id.iv_add, R.id.tv_time})
+    @OnClick({R.id.iv_add,})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_add:
                 saveNote();
-                break;
-            case R.id.tv_time:
-                datePicker(tvTime);
                 break;
         }
     }
@@ -174,17 +169,17 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
 //            noteBean.NDetail= edDetail.getText().toString();
             noteBean.NBuyName= buyBeanName;
 //            noteBean.NAddrName= spAddrUIDlg.getDataName();
-            noteBean.Ntime = tvTime.getText().toString();
+            noteBean.Ntime = CommonUtil.getTimeLong(true);
             noteBean.NCreateTime = CommonUtil.getTimeLong(true);
             noteBeanDao.insert(noteBean);
             Toast.showText(mContext, "添加成功");
         }else{
             NoteBean bean = list.get(0);
-            bean.Ntime = tvTime.getText().toString();
+            bean.Ntime = CommonUtil.getTimeLong(true);
             noteBeanDao.update(bean);
         }
         BuyAtBean buyAtBean = new BuyAtBean();
-        buyAtBean.FName = edDetail.getText().toString();
+        buyAtBean.FName = tvNum.getString();
         buyAtBean.setBuyBean(buyBean);
         buyAtBean.setAddrBean(spAddrUIDlg.getData());
         buyAtBean.FCreateData = CommonUtil.getTimeLong(true);

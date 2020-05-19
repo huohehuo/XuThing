@@ -47,8 +47,8 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
         @Override
         public void setData(BuyAtBean data) {
             super.setData(data);
-            name.setText(data.FName);
-            tvAddr.setText(data.FAddrName);
+            name.setText(data.FAddrName);
+            tvAddr.setText(data.FName);
             time.setText(data.FCreateData);
         }
     }

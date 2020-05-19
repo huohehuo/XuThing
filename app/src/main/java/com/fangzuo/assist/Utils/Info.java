@@ -31,5 +31,6 @@ public class Info {
 
 
     public static final int RegisterNo = 1;
+    public static final int View_Number_Click = 30;
 
 }
