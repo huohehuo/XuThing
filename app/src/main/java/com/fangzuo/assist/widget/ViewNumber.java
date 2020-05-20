@@ -129,6 +129,7 @@ public class ViewNumber extends RelativeLayout {
                 break;
         }
     }
+    //修改点击后的颜色
     private void setColor(int id){
         tv1.setBackgroundColor(white);
         tv2.setBackgroundColor(white);

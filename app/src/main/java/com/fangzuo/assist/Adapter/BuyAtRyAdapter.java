@@ -8,6 +8,7 @@ import com.fangzuo.assist.Dao.BuyAtBean;
 import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.LocDataUtil;
+import com.fangzuo.assist.Utils.MathUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -15,6 +16,7 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
     Context context;
     public BuyAtRyAdapter(Context context) {
         super(context);
+        this.context = context;
     }
 //    @Override
 //    public int getViewType(int position) {
@@ -23,6 +25,7 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
 //        }else{
 //            return 2;
 //        }
+
 //    }
     @Override
     public BaseViewHolder OnCreateViewHolder(ViewGroup parent, int viewType) {
@@ -37,11 +40,13 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
         private TextView name;
         private TextView tvAddr;
         private TextView time;
+        private TextView tvSign;
         public MarkHolder(ViewGroup parent) {
             super(parent, R.layout.item_buyat);
             name= $(R.id.tv_name);
             tvAddr= $(R.id.tv_addr);
             time= $(R.id.tv_time);
+            tvSign= $(R.id.tv_sign);
         }
 
         @Override
@@ -50,7 +55,16 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
             name.setText(data.FAddrName);
             tvAddr.setText(data.FName);
             time.setText(data.FCreateData);
+            tvSign.setBackgroundColor(getColor(data.FName));
         }
+    }
+
+    private int getColor(String num){
+        double res = MathUtil.toD(num);
+        if (res<=10)return context.getResources().getColor(R.color.cpb_green);
+        if (res>10 && res<=20)return context.getResources().getColor(R.color.cpb_blue);
+        if (res>20)return context.getResources().getColor(R.color.cpb_red);
+        return context.getResources().getColor(R.color.white);
     }
 //
 //    class MarkHolderForDate extends BaseViewHolder<BuyAtBean> {
