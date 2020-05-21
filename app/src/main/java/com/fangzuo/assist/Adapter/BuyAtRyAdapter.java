@@ -61,9 +61,11 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
 
     private int getColor(String num){
         double res = MathUtil.toD(num);
-        if (res<=10)return context.getResources().getColor(R.color.cpb_green);
-        if (res>10 && res<=20)return context.getResources().getColor(R.color.cpb_blue);
-        if (res>20)return context.getResources().getColor(R.color.cpb_red);
+        if (res<=20)return context.getResources().getColor(R.color.buylv1);
+        if (res>20 && res<=50)return context.getResources().getColor(R.color.buylv2);
+        if (res>50 && res<=80)return context.getResources().getColor(R.color.buylv3);
+        if (res>80 && res<=110)return context.getResources().getColor(R.color.buylv4);
+        if (res>110)return context.getResources().getColor(R.color.buylv5);
         return context.getResources().getColor(R.color.white);
     }
 //

@@ -125,7 +125,9 @@ public class HomeFragment extends BaseFragment {
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                //删除附带的明细
                                 buyAtBeanDao.deleteInTx(buyAtBeanDao.queryBuilder().where(BuyAtBeanDao.Properties.FBuyName.eq(adapter.getAllData().get(position).getNBuyName())).build().list());
+                                //删除明细
                                 noteBeanDao.deleteInTx(adapter.getAllData().get(position));
                                 initData();
                             }

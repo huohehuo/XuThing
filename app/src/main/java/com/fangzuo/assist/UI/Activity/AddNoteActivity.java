@@ -36,6 +36,7 @@ import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.ImageUtil;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.assist.Utils.MathUtil;
 import com.fangzuo.assist.Utils.Toast;
 import com.fangzuo.assist.Utils.VibratorUtil;
 import com.fangzuo.assist.widget.SpinnerAddrUIDlg;
@@ -62,6 +63,8 @@ import pub.devrel.easypermissions.EasyPermissions;
 public class AddNoteActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks {
     @BindView(R.id.tv_title)
     TextView tvTitle;
+    @BindView(R.id.tv_result)
+    TextView tvResult;
     @BindView(R.id.tv_num)
     ViewNumber tvNum;
     @BindView(R.id.ed_name)
@@ -114,6 +117,11 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         adapter.addAll(buyAtBeanDao.queryBuilder().where(BuyAtBeanDao.Properties.FBuyName.eq(buyBeanName)).orderDesc(BuyAtBeanDao.Properties.Id).build().list());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
+        double res=0;
+        for (int i = 0; i < adapter.getAllData().size(); i++) {
+            res += MathUtil.toD(adapter.getAllData().get(i).FName);
+        }
+        tvResult.setText("汇总:"+res);
     }
 
     @Override

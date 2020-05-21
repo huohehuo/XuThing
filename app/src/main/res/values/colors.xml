@@ -79,4 +79,10 @@
     <color name="bg_login">#3de1ad</color>
     <color name="bbbbb">#00f7f7f7</color>
 
+    <color name="buylv1">#24d600</color>
+    <color name="buylv2">#5061c2</color>
+    <color name="buylv3">#253dc6</color>
+    <color name="buylv4">#e4d501</color>
+    <color name="buylv5">#f10028</color>
+
 </resources>
