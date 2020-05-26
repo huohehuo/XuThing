@@ -46,7 +46,7 @@ import butterknife.ButterKnife;
 public class HomeFragment extends BaseFragment {
     @BindView(R.id.ry_list)
     EasyRecyclerView ryList;
-    HomeRyAdapter adapter;
+    private HomeRyAdapter adapter;
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
     private BuyAtBeanDao buyAtBeanDao;
@@ -84,7 +84,7 @@ public class HomeFragment extends BaseFragment {
         ryList.setLayoutManager(new LinearLayoutManager(mContext));
         ryList.setRefreshing(true);
         adapter.clear();
-        adapter.addAll(noteBeanDao.queryBuilder().orderDesc(NoteBeanDao.Properties.Id).build().list());
+        adapter.addAll(noteBeanDao.queryBuilder().orderDesc(NoteBeanDao.Properties.Ntime).build().list());
         adapter.notifyDataSetChanged();
         ryList.setRefreshing(false);
 
@@ -153,7 +153,7 @@ public class HomeFragment extends BaseFragment {
         super.setUserVisibleHint(isVisibleToUser);
         if (isVisibleToUser) {
             if (App.hasChangeView){
-                loadListData();
+                if (null != adapter)loadListData();
                 App.hasChangeView = false;
             }
 //            adapter.clear();

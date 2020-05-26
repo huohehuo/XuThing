@@ -12,9 +12,9 @@ public class NoteBean {
 
     @Id(autoincrement = true)
     public Long id;
-    public String NTitle;//标题
+    public String NTitle;//标题  弃用
     public String Ntime;//时间
-    public String NDetail;//日志问价按
+    public String NDetail;//日志问价按  弃用
     public int NMoodLocInt;//
 //    public byte[] NPic;
     public String NCreateTime;

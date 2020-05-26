@@ -1,27 +1,43 @@
 package com.fangzuo.assist.UI.Fragment;
 
 
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.AppCompatTextView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseFragment;
 import com.fangzuo.assist.Activity.Crash.App;
+import com.fangzuo.assist.Adapter.ProductselectAdapter;
+import com.fangzuo.assist.Dao.BarCode;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Activity.BaseDataActivity;
 import com.fangzuo.assist.UI.Activity.ScanTestActivity;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
+import com.fangzuo.assist.Utils.MathUtil;
+import com.fangzuo.assist.Utils.Toast;
+import com.fangzuo.assist.widget.LoadingUtil;
 import com.fangzuo.greendao.gen.NoteBeanDao;
+import com.fangzuo.greendao.gen.ProductDao;
 import com.orhanobut.hawk.Hawk;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,6 +63,8 @@ public class OwnFragment extends BaseFragment {
     AppCompatTextView tvCloudNum;
     @BindView(R.id.ll_cloud)
     LinearLayout llCloud;
+    @BindView(R.id.ll_lv)
+    LinearLayout llLv;
 
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
@@ -142,7 +160,104 @@ public class OwnFragment extends BaseFragment {
 //            }
 //        });
     }
+    private AlertDialog alertDialog;
+    private void showLvDlg(){
+        AlertDialog.Builder ab = new AlertDialog.Builder(mContext);
+//        ab.setTitle("请选择物料");
+        View v = LayoutInflater.from(mContext).inflate(R.layout.item_lv_dlg, null);
+        final EditText lv1 = v.findViewById(R.id.ed_lv1);final EditText lv1f = v.findViewById(R.id.ed_lv1_f);
+        final EditText lv2 = v.findViewById(R.id.ed_lv2);final EditText lv2f = v.findViewById(R.id.ed_lv2_f);
+        final EditText lv3 = v.findViewById(R.id.ed_lv3);final EditText lv3f = v.findViewById(R.id.ed_lv3_f);
+        final EditText lv4 = v.findViewById(R.id.ed_lv4);
+        final EditText lv4f = v.findViewById(R.id.ed_lv4_f);
+        final TextView lv5 = v.findViewById(R.id.tv_lv5);
+        final TextView lv5f = v.findViewById(R.id.tv_lv5_f);
+        Button btn = v.findViewById(R.id.btn);
+        lv1.setText(Hawk.get(Info.Num_Lv1,100)+"");lv1f.setText(Hawk.get(Info.Num_Lv1_f,20)+"");
+        lv2.setText(Hawk.get(Info.Num_Lv2,200)+"");lv2f.setText(Hawk.get(Info.Num_Lv2_f,50)+"");
+        lv3.setText(Hawk.get(Info.Num_Lv3,350)+"");lv3f.setText(Hawk.get(Info.Num_Lv3_f,110)+"");
+        lv4.setText(Hawk.get(Info.Num_Lv4,500)+"");lv4f.setText(Hawk.get(Info.Num_Lv4_f,200)+"");
+        lv5.setText("大于 "+Hawk.get(Info.Num_Lv4,500));lv5f.setText("大于 "+Hawk.get(Info.Num_Lv4_f,200));
+        final List<EditText> list = new ArrayList<>();
+        list.add(lv1);list.add(lv2);list.add(lv3);list.add(lv4);
+        list.add(lv1f);list.add(lv2f);list.add(lv3f);list.add(lv4f);
+        ab.setView(v);
+        LoadingUtil.dismiss();
+        lv4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                lv5.setText("大于 "+lv4.getText().toString());
+            }
+        });
+        lv4f.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                lv5f.setText("大于 "+lv4f.getText().toString());
+            }
+        });
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!dealDlgNullText(list)){
+                    Hawk.put(Info.Num_Lv1,MathUtil.toD(lv1.getText().toString()));Hawk.put(Info.Num_Lv1_f,MathUtil.toD(lv1f.getText().toString()));
+                    Hawk.put(Info.Num_Lv2,MathUtil.toD(lv2.getText().toString()));Hawk.put(Info.Num_Lv2_f,MathUtil.toD(lv2f.getText().toString()));
+                    Hawk.put(Info.Num_Lv3,MathUtil.toD(lv3.getText().toString()));Hawk.put(Info.Num_Lv3_f,MathUtil.toD(lv3f.getText().toString()));
+                    Hawk.put(Info.Num_Lv4,MathUtil.toD(lv4.getText().toString()));Hawk.put(Info.Num_Lv4_f,MathUtil.toD(lv4f.getText().toString()));
+                    Toast.showText(mContext,"设置成功");
+                    App.hasChangeView = true;
+                    alertDialog.dismiss();
+                }else{
+                    LoadingUtil.showAlter(mContext,"注意","等级不能为空");
+                }
+            }
+        });
+
+//        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+//                BarCode barCode = (BarCode) productselectAdapter.getItem(i);
+//                products = productDao.queryBuilder().where(
+//                        ProductDao.Properties.FItemID.eq(barCode.FItemID)
+//                ).build().list();
+//                default_unitID = barCode.FUnitID;
+////                                chooseUnit(default_unitID);
+//                product = products.get(0);
+//                tvorIsAuto(product);
+//                alertDialog.dismiss();
+//            }
+//        });
+        alertDialog = ab.create();
+        alertDialog.setCanceledOnTouchOutside(false);
+        alertDialog.show();
+    }
+    //检测是否存在为输入的数字
+    private boolean dealDlgNullText(List<EditText> list){
+        boolean hasNull=false;
+        for (int i = 0; i < list.size(); i++) {
+            if ("".equals(list.get(i).getText().toString())){
+                hasNull = true;
+                break;
+            }
+        }
+        return hasNull;
+
+    }
 
     @Override
     protected void OnReceive(String barCode) {
@@ -166,7 +281,7 @@ public class OwnFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.iv_book, R.id.tv_num,R.id.ll_data, R.id.ll_cloud})
+    @OnClick({R.id.iv_book, R.id.tv_num,R.id.ll_data, R.id.ll_cloud, R.id.ll_lv})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_book:
@@ -180,6 +295,10 @@ public class OwnFragment extends BaseFragment {
                 break;
             case R.id.ll_cloud:
                 ScanTestActivity.start(mContext);
+                break;
+            case R.id.ll_lv:
+                LoadingUtil.showDialog(mContext,"正在获取...");
+               showLvDlg();
                 break;
         }
     }

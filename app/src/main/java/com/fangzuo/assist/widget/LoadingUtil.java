@@ -205,6 +205,12 @@ public class LoadingUtil {
                 .setPositiveButton("确认",null)
                 .create().show();
     }
+    public static void showAlter(Context mContext,String msg){
+        new AlertDialog.Builder(mContext)
+                .setMessage(msg)
+                .setPositiveButton("确认",null)
+                .create().show();
+    }
     //弹窗提示,是否可以点击外部取消
     public static void showAlter(Context mContext,String title,String msg,boolean cancele){
         AlertDialog.Builder ab = new AlertDialog.Builder(mContext);

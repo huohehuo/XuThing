@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context="com.fangzuo.assist.UI.Activity.WelcomeActivity">
 
-
     <ImageView
         android:id="@+id/iv"
         android:background="@mipmap/logo"

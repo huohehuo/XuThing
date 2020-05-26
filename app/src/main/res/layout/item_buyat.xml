@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:layout_weight="0.05"
         android:padding="4dp"
-        android:textSize="18sp"/>
+        android:textSize="@dimen/dp_18"/>
     <include layout="@layout/line_shu" />
 
     <LinearLayout
@@ -40,14 +40,15 @@
 
             <include layout="@layout/line_shu" />
 
-            <TextView
+            <android.support.v7.widget.AppCompatTextView
+                android:autoSizeTextType="uniform"
+                android:autoSizeMaxTextSize="@dimen/sp_17"
                 android:id="@+id/tv_addr"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:layout_marginLeft="2dp"
-                android:gravity="left"
-                android:textSize="15sp"
+                android:gravity="center"
                 tools:text="时间" />
 
         </LinearLayout>

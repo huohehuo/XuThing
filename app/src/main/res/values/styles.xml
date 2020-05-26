@@ -104,5 +104,4 @@
         <attr name="manspinner_title" format="string" />
         <attr name="manspinner_size" format="dimension" />
     </declare-styleable>
-
 </resources>

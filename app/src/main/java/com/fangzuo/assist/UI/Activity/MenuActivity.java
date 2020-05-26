@@ -3,6 +3,7 @@ package com.fangzuo.assist.UI.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -14,6 +15,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,6 +32,8 @@ import com.fangzuo.assist.UI.Fragment.OwnFragment;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Fragment.RiliFragment;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.assist.Utils.LocDataUtil;
+import com.fangzuo.assist.widget.LoadingUtil;
 import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.DaoSession;
 import com.jude.easyrecyclerview.EasyRecyclerView;
@@ -90,8 +96,6 @@ public class MenuActivity extends BaseActivity {
 
     private BuyBeanDao buyBeanDao;
 
-
-
     @Override
     public void initView() {
         setContentView(R.layout.activity_menu);
@@ -117,38 +121,8 @@ public class MenuActivity extends BaseActivity {
 //        ivPurchase.setImageResource(R.mipmap.purchase);
 //        tvPurchase.setTextColor(tvcolor);
 
-        //[["FHTZD000001",100726.0,"电子阅读器BOOX Nova Pro 前壳玻璃三合一黑色+后壳蓝色 (BOOX丝印，RK3288_V1.1_C，2+32G，2800mha，中文版，新贴纸)","OPC0587R",101032.0,100001.0,100001.0,1.0,"SAL_SaleOrder","SaleOrder-DeliveryNotice"]]
-        String string = "[[\"FHTZD000001\",100726.0,\"电子阅读器BOOX Nova Pro 前壳玻璃三合一黑色+后壳蓝色 (BOOX丝印，RK3288_V1.1_C，2+32G，2800mha，中文版，新贴纸)\",\"OPC0587R\",101032.0,100001.0,100001.0,1.0,\"SAL_SaleOrder\",\"SaleOrder-DeliveryNotice\"]]";
-        setData(string);
-
 
     }
-    private void setData(String object){
-        JSONArray jsonArray = null;
-        try {
-            Lg.e("转换",gson.toJsonTree(object));
-            Lg.e("转换",gson.toJson(object));
-            jsonArray = new JSONArray(object);
-            Lg.e("得到"+jsonArray);
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONArray json = new JSONArray(jsonArray.get(i).toString());
-//                PushDownSub dpt = new PushDownSub();
-//                dpt.FNumber = json.get(0).toString();
-//                dpt.FName = json.get(1).toString();
-//                dpt.FNumber = json.get(2).toString();
-//                dpt.FOrg = json.get(3).toString();
-//                dpt.FISSTOCK = json.get(4).toString();
-//                department.add(dpt);
-
-                Lg.e("组合成"+json);
-//                adapter.add(dpt);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-            Lg.e("明细",e.getMessage());
-        }
-    }
-
 
     @Override
     public void initListener() {
@@ -262,11 +236,47 @@ public class MenuActivity extends BaseActivity {
             }
         });
 //        ab.setMessage(msg);
-        ab.setPositiveButton("取消",null);
+        ab.setPositiveButton("返回",null);
+        ab.setNeutralButton("添加项目", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                insertBuyBean();
+            }
+        });
         alertDialog = ab.create();
         alertDialog.setCanceledOnTouchOutside(false);
         alertDialog.show();
     }
+    AlertDialog getAlertDialog;
+    private void insertBuyBean(){
+        AlertDialog.Builder ab = new AlertDialog.Builder(mContext);
+//        ab.setTitle("请选择项目");
+        View v = LayoutInflater.from(mContext).inflate(R.layout.dlg_buy_add, null);
+        final EditText editText = v.findViewById(R.id.ed_buyname);
+        Button button = v.findViewById(R.id.btn);
+        ab.setView(v);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (LocDataUtil.addBuyBean(editText.getText().toString())){
+                    AddNoteActivity.start(mContext,editText.getText().toString());
+                    alertDialog.dismiss();
+                    getAlertDialog.dismiss();
+                }else{
+                    LoadingUtil.showAlter(mContext,"该项目已存在");
+                }
+            }
+        });
+        getAlertDialog = ab.create();
+//        getAlertDialog.getWindow().setBackgroundDrawableResource(R.drawable.loading);//设置背景
+        getAlertDialog.setCanceledOnTouchOutside(false);
+        getAlertDialog.show();
+    }
+
+
+
+
+
     @OnClick({R.id.iv_add, R.id.ll1,R.id.bottom_btn_purchase,R.id.bottom_btn_sale,R.id.bottom_btn_setting})
     public void onViewClicked(View view) {
         switch (view.getId()) {

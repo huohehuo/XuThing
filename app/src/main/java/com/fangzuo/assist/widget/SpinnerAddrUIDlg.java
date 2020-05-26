@@ -18,10 +18,14 @@ import android.widget.Spinner;
 
 import com.fangzuo.assist.Adapter.BaseDataAddrSpAdapter;
 import com.fangzuo.assist.Adapter.BaseDataBuySpAdapter;
+import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
 import com.fangzuo.assist.Dao.AddrBean;
 import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.BasicShareUtil;
+import com.fangzuo.assist.Utils.Config;
+import com.fangzuo.assist.Utils.EventBusInfoCode;
+import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.greendao.gen.AddrBeanDao;
@@ -105,6 +109,8 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
                 setTitleText(employeeName);
                 Lg.e("选中"+mText.getText().toString(),employee);
                 Hawk.put(saveKeyString,employee.FName);
+                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.View_Upload_Addr,addrBean));
+
             }
 
             @Override
@@ -126,6 +132,17 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
                 showDlg(context);
             }
         });
+    }
+
+    @Override
+    public boolean performClick() {
+        llClick.performClick();
+        return super.performClick();
+    }
+
+    public void reLoad(){
+        container.clear();
+        container.addAll(getLocData());
     }
 
     AlertDialog alertDialog;
@@ -192,9 +209,12 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
     }
 
     private List<AddrBean> getLocData() {
-        AddrBeanDao employeeDao = daoSession.getAddrBeanDao();
+        Lg.e("查找数据");
+        List<AddrBean> employees =new ArrayList<>();
+        employees.add(new AddrBean(0l,"","","","","",""));
+        employees.addAll(daoSession.getAddrBeanDao().loadAll());
 //        List<Storage> employees = employeeDao.queryBuilder().where(StorageDao.Properties.FOrg.eq(org)).build().list();
-        List<AddrBean> employees = employeeDao.loadAll();
+//        List<AddrBean> employees = employeeDao.loadAll();
         return employees;
     }
 
@@ -248,12 +268,12 @@ public class SpinnerAddrUIDlg extends RelativeLayout {
 //                }
 //            }
 //        } else {
-        if (isAddnull){
-            container.add(new AddrBean(0l,"","","","","",""));
+//        if (isAddnull){
+//            container.add(new AddrBean(0l,"","","","","",""));
+//            container.addAll(listData);
+//        }else{
             container.addAll(listData);
-        }else{
-            container.addAll(listData);
-        }
+//        }
 //        }
         if (container.size() > 0) {
             mSp.setAdapter(adapter);

@@ -12,7 +12,8 @@ public class BuyAtBean {
     @Id(autoincrement = true)
     public Long id;
     public String FID;//名称
-    public String FName;//名称
+    public String FName;//数量
+    public String FNum;//数量
     public String FAddrID;
     public String FAddrName;
     public String FBuyID;
@@ -38,13 +39,14 @@ public class BuyAtBean {
 
 
 
-    @Generated(hash = 2038678271)
-    public BuyAtBean(Long id, String FID, String FName, String FAddrID,
+    @Generated(hash = 1682317223)
+    public BuyAtBean(Long id, String FID, String FName, String FNum, String FAddrID,
             String FAddrName, String FBuyID, String FBuyName, String FCreateData,
             String FIsCloud, String FUseNum, String FMapID) {
         this.id = id;
         this.FID = FID;
         this.FName = FName;
+        this.FNum = FNum;
         this.FAddrID = FAddrID;
         this.FAddrName = FAddrName;
         this.FBuyID = FBuyID;
@@ -122,6 +124,12 @@ public class BuyAtBean {
     }
     public void setFMapID(String FMapID) {
         this.FMapID = FMapID;
+    }
+    public String getFNum() {
+        return this.FNum;
+    }
+    public void setFNum(String FNum) {
+        this.FNum = FNum;
     }
 
 

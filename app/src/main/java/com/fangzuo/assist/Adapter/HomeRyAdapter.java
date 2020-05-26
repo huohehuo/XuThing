@@ -12,6 +12,8 @@ import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.Info;
+import com.fangzuo.assist.Utils.LocDataUtil;
+import com.fangzuo.assist.Utils.MathUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.orhanobut.hawk.Hawk;
@@ -20,6 +22,7 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
     Context context;
     public HomeRyAdapter(Context context) {
         super(context);
+        this.context = context;
     }
     @Override
     public int getViewType(int position) {
@@ -42,13 +45,17 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
         private TextView name;
         private TextView time;
         private TextView detail;
+        private TextView detail2;
         private ImageView icon;
+        private TextView tvSign;
         public MarkHolder(ViewGroup parent) {
             super(parent, R.layout.item_home);
             name= $(R.id.tv_name);
             time= $(R.id.tv_time);
             icon= $(R.id.iv_icon);
             detail= $(R.id.tv_detail);
+            detail2= $(R.id.tv_size);
+            tvSign= $(R.id.tv_sign);
 //            checkBox = $(R.id.view_cb);
         }
 
@@ -56,12 +63,11 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
         public void setData(NoteBean data) {
             super.setData(data);
             name.setText(data.NBuyName);
-            time.setText(data.Ntime);
-            if (null==data.NDetail || "".equals(data.NDetail)){
-                detail.setVisibility(View.GONE);
-            }else{
-                detail.setText(data.NDetail);
-            }
+            time.setText("最近一次更新:"+data.Ntime);
+            String num = LocDataUtil.getBuyAtAllNum(data.NBuyName);
+            detail.setText("汇总: "+MathUtil.toDBigString(num));
+            detail2.setText("条数: "+LocDataUtil.getBuyAtAllSize(data.NBuyName));
+            tvSign.setBackgroundColor(getColor(num));
 //            Glide.with(getContext())
 //                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
 ////                    .load(R.drawable.happy)
@@ -71,6 +77,17 @@ public class HomeRyAdapter extends RecyclerArrayAdapter<NoteBean> {
 //                    .into(icon);
         }
     }
+
+    private int getColor(String num){
+        double res = MathUtil.toD(num);
+        if (res<=Hawk.get(Info.Num_Lv1,100d))return context.getResources().getColor(R.color.buylv1);
+        if (res>Hawk.get(Info.Num_Lv1,100d) && res<=Hawk.get(Info.Num_Lv2,200d))return context.getResources().getColor(R.color.buylv2);
+        if (res>Hawk.get(Info.Num_Lv2,200d) && res<=Hawk.get(Info.Num_Lv3,350d))return context.getResources().getColor(R.color.buylv3);
+        if (res>Hawk.get(Info.Num_Lv3,350d) && res<=Hawk.get(Info.Num_Lv4,500d))return context.getResources().getColor(R.color.buylv4);
+        if (res>Hawk.get(Info.Num_Lv5,500d))return context.getResources().getColor(R.color.buylv5);
+        return context.getResources().getColor(R.color.white);
+}
+
 
     class MarkHolderForDate extends BaseViewHolder<NoteBean> {
 

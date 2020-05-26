@@ -13,46 +13,22 @@ import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.Gravity;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.fangzuo.assist.ABase.BaseActivity;
-import com.fangzuo.assist.Adapter.BaseDataRyAdapter;
-import com.fangzuo.assist.Adapter.HomeRyAdapter;
 import com.fangzuo.assist.Adapter.StripAdapter;
 import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
-import com.fangzuo.assist.Dao.BuyBean;
-import com.fangzuo.assist.Fragment.pushdown.ChooseFragment;
-import com.fangzuo.assist.Fragment.pushdown.DownLoadPushFragment;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Fragment.AddrBeanFragment;
 import com.fangzuo.assist.UI.Fragment.BuyBeanFragment;
 import com.fangzuo.assist.Utils.EventBusInfoCode;
-import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.Utils.PagerSlidingTabStrip;
-import com.fangzuo.assist.widget.BottomSheetDialogListView;
-import com.fangzuo.assist.widget.SpringBackBottomSheetDialog;
-import com.fangzuo.greendao.gen.BuyBeanDao;
-import com.fangzuo.greendao.gen.NoteBeanDao;
-import com.jude.easyrecyclerview.EasyRecyclerView;
-import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 public class BaseDataActivity extends BaseActivity {
 
@@ -94,8 +70,8 @@ public class BaseDataActivity extends BaseActivity {
         ArrayList<String> titles = new ArrayList<>();
         fragments.add(new BuyBeanFragment());
         fragments.add(new AddrBeanFragment());
-        titles.add("购买种类");
-        titles.add("常用地址");
+        titles.add("记录项目");
+        titles.add("备注历史");
         StripAdapter stripAdapter = new StripAdapter(getSupportFragmentManager(), fragments, titles);
         Log.e("stripAdapter", stripAdapter + "");
         viewpager.setAdapter(stripAdapter);

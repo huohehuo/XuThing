@@ -43,6 +43,7 @@ import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Lg;
+import com.fangzuo.assist.Utils.MathUtil;
 import com.fangzuo.assist.Utils.ShareUtil;
 import com.fangzuo.assist.Utils.Toast;
 import com.fangzuo.greendao.gen.DaoSession;
@@ -536,7 +537,35 @@ protected void onResume() {
     protected void receiveEvent(ClassEvent event) {
 
     }
+    public String datePickerWithData(final TextView v,Context context,String time) {
+        if (time.length()==10){
+            year = MathUtil.toInt(time.substring(0,4));
+            month = MathUtil.toInt(time.substring(5,7))-1;
+            day = MathUtil.toInt(time.substring(8,time.length()));
+        }
+        Lg.e("获取时间1"+year);
+        Lg.e("获取时间2"+month);
+        Lg.e("获取时间3"+day);
+        final DatePickerDialog datePickerDialog = new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+            }
+        }, year, month, day);
+        datePickerDialog.setButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                int year = datePickerDialog.getDatePicker().getYear();
+                int month = datePickerDialog.getDatePicker().getMonth();
+                int day = datePickerDialog.getDatePicker().getDayOfMonth();
+                date = year + "-" + ((month < 9) ? "0" + (month + 1) : (month + 1)) + "-" + ((day < 10) ? "0" + day : day);
+                v.setText(date);
+                datePickerDialog.dismiss();
 
+            }
+        });
+        datePickerDialog.show();
+        return date;
+    }
     public String datePicker(final TextView v) {
         final DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, new DatePickerDialog.OnDateSetListener() {
             @Override

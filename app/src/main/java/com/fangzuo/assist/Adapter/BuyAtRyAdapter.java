@@ -1,16 +1,19 @@
 package com.fangzuo.assist.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.fangzuo.assist.Dao.BuyAtBean;
 import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.assist.Utils.LocDataUtil;
 import com.fangzuo.assist.Utils.MathUtil;
 import com.jude.easyrecyclerview.adapter.BaseViewHolder;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.orhanobut.hawk.Hawk;
 
 public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
     Context context;
@@ -38,7 +41,7 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
     class MarkHolder extends BaseViewHolder<BuyAtBean> {
 
         private TextView name;
-        private TextView tvAddr;
+        private AppCompatTextView tvAddr;
         private TextView time;
         private TextView tvSign;
         public MarkHolder(ViewGroup parent) {
@@ -53,19 +56,19 @@ public class BuyAtRyAdapter extends RecyclerArrayAdapter<BuyAtBean> {
         public void setData(BuyAtBean data) {
             super.setData(data);
             name.setText(data.FAddrName);
-            tvAddr.setText(data.FName);
+            tvAddr.setText(data.FNum);
             time.setText(data.FCreateData);
-            tvSign.setBackgroundColor(getColor(data.FName));
+            tvSign.setBackgroundColor(getColor(data.FNum));
         }
     }
 
     private int getColor(String num){
         double res = MathUtil.toD(num);
-        if (res<=20)return context.getResources().getColor(R.color.buylv1);
-        if (res>20 && res<=50)return context.getResources().getColor(R.color.buylv2);
-        if (res>50 && res<=80)return context.getResources().getColor(R.color.buylv3);
-        if (res>80 && res<=110)return context.getResources().getColor(R.color.buylv4);
-        if (res>110)return context.getResources().getColor(R.color.buylv5);
+        if (res<= Hawk.get(Info.Num_Lv1_f,20d))return context.getResources().getColor(R.color.buylv1);
+        if (res>Hawk.get(Info.Num_Lv1_f,20d) && res<=Hawk.get(Info.Num_Lv2_f,50d))return context.getResources().getColor(R.color.buylv2);
+        if (res>Hawk.get(Info.Num_Lv2_f,50d) && res<=Hawk.get(Info.Num_Lv3_f,110d))return context.getResources().getColor(R.color.buylv3);
+        if (res>Hawk.get(Info.Num_Lv3_f,110d) && res<=Hawk.get(Info.Num_Lv4_f,200d))return context.getResources().getColor(R.color.buylv4);
+        if (res>Hawk.get(Info.Num_Lv5_f,200d))return context.getResources().getColor(R.color.buylv5);
         return context.getResources().getColor(R.color.white);
     }
 //

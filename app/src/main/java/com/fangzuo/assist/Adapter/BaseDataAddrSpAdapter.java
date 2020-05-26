@@ -1,6 +1,7 @@
 package com.fangzuo.assist.Adapter;
 
 import android.content.Context;
+import android.support.v7.widget.AppCompatTextView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,6 +67,6 @@ public class BaseDataAddrSpAdapter extends BaseAdapter {
 
 
     class ViewHolder{
-        TextView tv ;
+        AppCompatTextView tv ;
     }
 }

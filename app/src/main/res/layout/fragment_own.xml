@@ -26,6 +26,7 @@
     </RelativeLayout>
     <include layout="@layout/line_heng"/>
     <LinearLayout
+        android:visibility="gone"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -74,6 +75,37 @@
             android:autoSizeTextType="uniform"
             android:autoSizeMaxTextSize="20dp"
             android:id="@+id/tv_loc_num"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            tools:text="1000"/>
+    </LinearLayout>
+
+    <include layout="@layout/line_heng"/>
+    <LinearLayout
+        android:id="@+id/ll_lv"
+        android:layout_margin="4dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_centerInParent="true"
+            android:background="@mipmap/lv"
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+        <android.support.v7.widget.AppCompatTextView
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="20dp"
+            android:gravity="center"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:text="颜色等级"/>
+        <android.support.v7.widget.AppCompatTextView
+            android:autoSizeTextType="uniform"
+            android:autoSizeMaxTextSize="20dp"
+            android:id="@+id/tv_lv"
             android:gravity="center"
             android:layout_width="0dp"
             android:layout_weight="1"

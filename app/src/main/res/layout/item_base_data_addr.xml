@@ -12,7 +12,7 @@
         android:orientation="horizontal"
         android:layout_height="wrap_content">
         <ImageView
-            android:background="@mipmap/send"
+            android:background="@mipmap/history"
             android:id="@+id/iv_mood"
             android:layout_width="30dp"
             android:layout_height="30dp" />

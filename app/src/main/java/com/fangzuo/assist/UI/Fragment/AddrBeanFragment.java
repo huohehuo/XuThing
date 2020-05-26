@@ -14,10 +14,8 @@ import android.widget.EditText;
 
 import com.fangzuo.assist.ABase.BaseFragment;
 import com.fangzuo.assist.Adapter.BaseDataAddrRyAdapter;
-import com.fangzuo.assist.Adapter.BaseDataRyAdapter;
 import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
 import com.fangzuo.assist.Dao.AddrBean;
-import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.Utils.CommonUtil;
 import com.fangzuo.assist.Utils.EventBusInfoCode;
@@ -26,9 +24,7 @@ import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.Utils.LocDataUtil;
 import com.fangzuo.assist.Utils.Toast;
-import com.fangzuo.assist.widget.SpinnerBuyUIDlg;
 import com.fangzuo.greendao.gen.AddrBeanDao;
-import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 
@@ -143,10 +139,10 @@ public class AddrBeanFragment extends BaseFragment {
     //删除数据
     private void delBuyBean(int position){
         AddrBean buyBean = adapter.getAllData().get(position);
-        if (LocDataUtil.checkNoteBean4Addr(buyBean.FName)>0){
-            Toast.showText(mContext,"该种类存在数据，不允许删除");
-            return;
-        }
+//        if (LocDataUtil.checkNoteBean4Addr(buyBean.FName)>0){
+//            Toast.showText(mContext,"该种类存在数据，不允许删除");
+//            return;
+//        }
         addrBeanDao.deleteInTx(buyBean);
         Toast.showText(mContext,"删除成功");
         initData();

@@ -32,5 +32,15 @@ public class Info {
 
     public static final int RegisterNo = 1;
     public static final int View_Number_Click = 30;
+    public static final String Num_Lv1 = "Num_Lv1";
+    public static final String Num_Lv2 = "Num_Lv2";
+    public static final String Num_Lv3 = "Num_Lv3";
+    public static final String Num_Lv4 = "Num_Lv4";
+    public static final String Num_Lv5 = "Num_Lv5";
+    public static final String Num_Lv1_f = "Num_Lv1_f";
+    public static final String Num_Lv2_f = "Num_Lv2_f";
+    public static final String Num_Lv3_f = "Num_Lv3_f";
+    public static final String Num_Lv4_f = "Num_Lv4_f";
+    public static final String Num_Lv5_f = "Num_Lv5_f";
 
 }

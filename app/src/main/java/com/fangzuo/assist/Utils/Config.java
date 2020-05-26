@@ -24,6 +24,7 @@ public class Config {
     public static final String IO_type_TestDataBase="IO_type_TestDataBase";
     public static final String IO_type_SetProp="IO_type_SetProp";
     public static final String IO_type_connectToSQL="IO_type_connectToSQL";
+    public static final String View_Upload_Addr="View_Upload_Addr";
 
 
     //用于Presenter下载表的type区分

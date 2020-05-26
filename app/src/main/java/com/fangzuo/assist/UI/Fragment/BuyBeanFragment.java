@@ -110,6 +110,7 @@ public class BuyBeanFragment extends BaseFragment {
             public boolean onItemLongClick(final int position) {
                 new AlertDialog.Builder(mContext)
                         .setTitle("是否删除该条数据")
+                        .setMessage("该记录下的所有数据将一并清空")
                         .setPositiveButton("确认", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {

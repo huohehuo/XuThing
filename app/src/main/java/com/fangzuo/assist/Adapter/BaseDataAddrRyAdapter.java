@@ -46,7 +46,7 @@ public class BaseDataAddrRyAdapter extends RecyclerArrayAdapter<AddrBean> {
         public void setData(AddrBean data) {
             super.setData(data);
             name.setText(data.FName);
-            time.setText(LocDataUtil.checkNoteBean4Addr(data.FName)+"");
+            time.setText(LocDataUtil.checkUseNum4Addr(data.FName)+"");
         }
     }
 //
