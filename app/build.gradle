@@ -18,7 +18,7 @@ android {
         applicationId "com.fangzuo.assist.xuthing"
         minSdkVersion 19
         targetSdkVersion 27
-        versionCode 3
+        versionCode 4
         versionName "1.0"
         multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -54,12 +54,12 @@ android {
 }
 
 greendao {
-    schemaVersion 27
+    schemaVersion 28
     daoPackage 'com.fangzuo.greendao.gen'
     targetGenDir 'src/main/java'
 }
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
@@ -67,7 +67,6 @@ dependencies {
     implementation files('libs/httpcore-4.0-alpha5.jar')
     implementation files('libs/nineoldandroids-2.4.0.jar')
     implementation files('libs/xUtils-2.6.14.jar')
-    implementation files('libs/poi-4.1.0.jar')
     implementation 'com.android.support:appcompat-v7:27.1.1'
     //    implementation 'com.squareup.retrofit2:converter-gson:2.0.2'
     //    compile 'com.squareup.retrofit2:retrofit:2.0.2'

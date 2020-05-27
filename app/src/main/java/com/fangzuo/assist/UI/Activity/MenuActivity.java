@@ -33,6 +33,8 @@ import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Fragment.RiliFragment;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.Utils.LocDataUtil;
+import com.fangzuo.assist.Utils.UpgradeUtil.AppStatisticalUtil;
+import com.fangzuo.assist.Utils.UpgradeUtil.AppVersionUtil;
 import com.fangzuo.assist.widget.LoadingUtil;
 import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.DaoSession;
@@ -117,6 +119,8 @@ public class MenuActivity extends BaseActivity {
 
     @Override
     public void initData() {
+        AppStatisticalUtil.upDataStatis(mContext,"MenuActivity");
+        AppVersionUtil.CheckVersion(mContext);
 //        tvUser.setText("当前用户:" + ShareUtil.getInstance(mContext).getUserName());
 //        ivPurchase.setImageResource(R.mipmap.purchase);
 //        tvPurchase.setTextColor(tvcolor);

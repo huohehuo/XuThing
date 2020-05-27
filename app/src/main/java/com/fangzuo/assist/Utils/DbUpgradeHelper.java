@@ -12,6 +12,7 @@ import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.Dao.User;
 import com.fangzuo.greendao.gen.AddrBeanDao;
 import com.fangzuo.greendao.gen.BibieDao;
+import com.fangzuo.greendao.gen.BuyAtBeanDao;
 import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.DaoMaster;
 import com.fangzuo.greendao.gen.NoteBeanDao;
@@ -51,7 +52,8 @@ public class DbUpgradeHelper extends DaoMaster.DevOpenHelper {
        migrate(db,
                NoteBeanDao.class,
                AddrBeanDao.class,
-               BuyBeanDao.class
+               BuyBeanDao.class,
+               BuyAtBeanDao.class
        );
     }
 
