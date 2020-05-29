@@ -27,10 +27,15 @@ import com.fangzuo.assist.ABase.BaseActivity;
 import com.fangzuo.assist.Adapter.BaseDataRyAdapter;
 import com.fangzuo.assist.Adapter.MenuFragmentAdapter;
 import com.fangzuo.assist.Adapter.ProductselectAdapter1;
+import com.fangzuo.assist.Beans.CommonResponse;
+import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
 import com.fangzuo.assist.UI.Fragment.HomeFragment;
 import com.fangzuo.assist.UI.Fragment.OwnFragment;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Fragment.RiliFragment;
+import com.fangzuo.assist.Utils.Asynchttp;
+import com.fangzuo.assist.Utils.EventBusInfoCode;
+import com.fangzuo.assist.Utils.EventBusUtil;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.Utils.LocDataUtil;
 import com.fangzuo.assist.Utils.UpgradeUtil.AppStatisticalUtil;
@@ -40,6 +45,7 @@ import com.fangzuo.greendao.gen.BuyBeanDao;
 import com.fangzuo.greendao.gen.DaoSession;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
+import com.loopj.android.http.AsyncHttpClient;
 
 import org.greenrobot.greendao.async.AsyncSession;
 import org.json.JSONArray;
@@ -124,7 +130,17 @@ public class MenuActivity extends BaseActivity {
 //        tvUser.setText("当前用户:" + ShareUtil.getInstance(mContext).getUserName());
 //        ivPurchase.setImageResource(R.mipmap.purchase);
 //        tvPurchase.setTextColor(tvcolor);
+        Asynchttp.post(mContext, "https://github.com/huohehuo/LinServer/blob/master/webData/xuthing.html", "", new Asynchttp.Response() {
+            @Override
+            public void onSucceed(CommonResponse cBean, AsyncHttpClient client) {
+//                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.Upload_OK,""));
+            }
 
+            @Override
+            public void onFailed(String Msg, AsyncHttpClient client) {
+//                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.Upload_Error,Msg));
+            }
+        });
 
     }
 

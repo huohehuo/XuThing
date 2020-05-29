@@ -2,9 +2,11 @@ package com.fangzuo.assist.RxSerivce;
 
 
 import com.fangzuo.assist.Beans.CommonResponse;
+import com.fangzuo.assist.Beans.WebResponse;
 
 import java.util.Map;
 
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
@@ -43,7 +45,9 @@ interface ServiceRequest {
     @POST("{actionio}")
     Observable<CommonResponse> actionIO(@Path("actionio") String io , @FieldMap Map<String, String> params);
 
-
+//    @FormUrlEncoded
+    @POST("{actionio}")
+    Observable<CommonResponse> actionPostIO(@Path("actionio") String io , @Body WebResponse webResponse);
 
 
 

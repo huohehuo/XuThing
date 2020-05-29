@@ -51,7 +51,7 @@ public class BasicShareUtil {
     }
 
     public String getBaseURL(){
-        return "http://"+ shared.getString("serverIp","192.168.0.0")+":"+shared.getString("serverPort","8080")+"/Assist/";
+        return "http://"+ shared.getString("serverIp","192.168.31.55")+":"+shared.getString("serverPort","8085")+"/Assist/";
     }
 
     public void setRegisterState(boolean b){

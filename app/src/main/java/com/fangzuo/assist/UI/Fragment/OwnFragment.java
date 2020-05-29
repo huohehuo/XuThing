@@ -23,15 +23,23 @@ import android.widget.TextView;
 import com.fangzuo.assist.ABase.BaseFragment;
 import com.fangzuo.assist.Activity.Crash.App;
 import com.fangzuo.assist.Adapter.ProductselectAdapter;
+import com.fangzuo.assist.Beans.CommonResponse;
+import com.fangzuo.assist.Beans.WebResponse;
+import com.fangzuo.assist.Dao.AddrBean;
 import com.fangzuo.assist.Dao.BarCode;
+import com.fangzuo.assist.Dao.BuyAtBean;
+import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
+import com.fangzuo.assist.RxSerivce.MySubscribe;
 import com.fangzuo.assist.UI.Activity.BaseDataActivity;
 import com.fangzuo.assist.UI.Activity.ScanTestActivity;
 import com.fangzuo.assist.Utils.GreenDaoManager;
 import com.fangzuo.assist.Utils.Info;
+import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.Utils.MathUtil;
 import com.fangzuo.assist.Utils.Toast;
 import com.fangzuo.assist.widget.LoadingUtil;
+import com.fangzuo.greendao.gen.DaoSession;
 import com.fangzuo.greendao.gen.NoteBeanDao;
 import com.fangzuo.greendao.gen.ProductDao;
 import com.orhanobut.hawk.Hawk;
@@ -68,6 +76,7 @@ public class OwnFragment extends BaseFragment {
 
     private FragmentActivity mContext;
     private NoteBeanDao noteBeanDao;
+    private DaoSession daoSession;
     private boolean isChangeView = false;
 
     public OwnFragment() {
@@ -80,7 +89,8 @@ public class OwnFragment extends BaseFragment {
         View v = inflater.inflate(R.layout.fragment_own, container, false);
         ButterKnife.bind(this, v);
         mContext = getActivity();
-        noteBeanDao = GreenDaoManager.getmInstance(mContext).getDaoSession().getNoteBeanDao();
+        daoSession = GreenDaoManager.getmInstance(mContext).getDaoSession();
+        noteBeanDao = daoSession.getNoteBeanDao();
         return v;
     }
 
@@ -294,13 +304,44 @@ public class OwnFragment extends BaseFragment {
                 BaseDataActivity.start(mContext);
                 break;
             case R.id.ll_cloud:
-                ScanTestActivity.start(mContext);
+                pushData();
+//                ScanTestActivity.start(mContext);
                 break;
             case R.id.ll_lv:
                 LoadingUtil.showDialog(mContext,"正在获取...");
                showLvDlg();
                 break;
         }
+    }
+    private void pushData(){
+        LoadingUtil.showDialog(mContext,"正在上传....");
+        WebResponse webResponse = new WebResponse();
+        ArrayList<BuyBean> buyBeans = new ArrayList<>();
+        ArrayList<BuyAtBean> buyAtBeans = new ArrayList<>();
+        ArrayList<AddrBean> addrBeans = new ArrayList<>();
+        buyBeans.addAll(daoSession.getBuyBeanDao().loadAll());
+        buyAtBeans.addAll(daoSession.getBuyAtBeanDao().loadAll());
+        addrBeans.addAll(daoSession.getAddrBeanDao().loadAll());
+        webResponse.buyBeans = buyBeans;
+        webResponse.buyAtBeans = buyAtBeans;
+        webResponse.addrBeans = addrBeans;
+        webResponse.size = buyBeans.size()+buyAtBeans.size()+addrBeans.size();
+        Lg.e("上传",webResponse);
+        App.getRService().doIOActionPost("BackUpBuyBean", webResponse, new MySubscribe<CommonResponse>() {
+            @Override
+            public void onNext(CommonResponse commonResponse) {
+                super.onNext(commonResponse);
+                LoadingUtil.dismiss();
+                LoadingUtil.showAlter(mContext,"成功");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                super.onError(e);
+                LoadingUtil.dismiss();
+                LoadingUtil.showAlter(mContext,"失败");
+            }
+        });
     }
 
 
