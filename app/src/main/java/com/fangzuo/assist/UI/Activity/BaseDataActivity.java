@@ -70,7 +70,7 @@ public class BaseDataActivity extends BaseActivity {
         ArrayList<String> titles = new ArrayList<>();
         fragments.add(new BuyBeanFragment());
         fragments.add(new AddrBeanFragment());
-        titles.add("记录项目");
+        titles.add("记录标签");
         titles.add("备注历史");
         StripAdapter stripAdapter = new StripAdapter(getSupportFragmentManager(), fragments, titles);
         Log.e("stripAdapter", stripAdapter + "");

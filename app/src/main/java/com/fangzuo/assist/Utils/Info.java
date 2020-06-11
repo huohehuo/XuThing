@@ -9,10 +9,15 @@ public class Info {
 //        if ("1".equals(Hawk.get(Config.PDA_Project_Type,"1"))){
 //            return "1.881";
 //        }else{
-        return "2.0";
+        return "1.0";
 //        }
     }
 
+    public static final String User_IMEI = "User_IMEI";
+    public static final String User_Name = "User_Name";
+    public static final String User_Pwd = "User_Pwd";
+    public static final String User_Code = "User_Code";
+    public static final String User_Token = "User_Token";
     public static final String ChangeView = "ChangeView";
     public static final String CbChangeView = "CbChangeView";
     public static final String DATABASESETTING = "master";

@@ -22,6 +22,7 @@ public class EventBusInfoCode {
     public static final String Register_Result = "111106";
     public static final String View_Upload_Addr = "View_Upload_Addr";
     public static final String View_Save = "View_Save";
+    public static final String View_Upload_ProgressBar = "View_Upload_ProgressBar";
 
 
 

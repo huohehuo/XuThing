@@ -12,101 +12,63 @@ public class NoteBean {
 
     @Id(autoincrement = true)
     public Long id;
-    public String NTitle;//标题  弃用
-    public String Ntime;//时间
-    public String NDetail;//日志问价按  弃用
-    public int NMoodLocInt;//
-//    public byte[] NPic;
-    public String NCreateTime;
+    public String FID;
     public String NBuyName;
+    public String Ntime;//时间
+    public String NCreateTime;
     public String NAddrName;
-
-    public NoteBean(String NTitle, String Ntime) {
-        this.NTitle = NTitle;
-        this.Ntime = Ntime;
-    }
-
-    @Generated(hash = 1898096123)
-    public NoteBean(Long id, String NTitle, String Ntime, String NDetail,
-            int NMoodLocInt, String NCreateTime, String NBuyName,
-            String NAddrName) {
+    @Generated(hash = 979808244)
+    public NoteBean(Long id, String FID, String NBuyName, String Ntime,
+            String NCreateTime, String NAddrName) {
         this.id = id;
-        this.NTitle = NTitle;
-        this.Ntime = Ntime;
-        this.NDetail = NDetail;
-        this.NMoodLocInt = NMoodLocInt;
-        this.NCreateTime = NCreateTime;
+        this.FID = FID;
         this.NBuyName = NBuyName;
+        this.Ntime = Ntime;
+        this.NCreateTime = NCreateTime;
         this.NAddrName = NAddrName;
     }
-
     @Generated(hash = 451626881)
     public NoteBean() {
     }
-
     public Long getId() {
         return this.id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public String getNTitle() {
-        return this.NTitle;
+    public String getFID() {
+        return this.FID;
     }
-
-    public void setNTitle(String NTitle) {
-        this.NTitle = NTitle;
+    public void setFID(String FID) {
+        this.FID = FID;
     }
-
-    public String getNtime() {
-        return this.Ntime;
-    }
-
-    public void setNtime(String Ntime) {
-        this.Ntime = Ntime;
-    }
-
-    public String getNDetail() {
-        return this.NDetail;
-    }
-
-    public void setNDetail(String NDetail) {
-        this.NDetail = NDetail;
-    }
-
-    public int getNMoodLocInt() {
-        return this.NMoodLocInt;
-    }
-
-    public void setNMoodLocInt(int NMoodLocInt) {
-        this.NMoodLocInt = NMoodLocInt;
-    }
-
-    public String getNCreateTime() {
-        return this.NCreateTime;
-    }
-
-    public void setNCreateTime(String NCreateTime) {
-        this.NCreateTime = NCreateTime;
-    }
-
     public String getNBuyName() {
         return this.NBuyName;
     }
-
     public void setNBuyName(String NBuyName) {
         this.NBuyName = NBuyName;
     }
-
+    public String getNtime() {
+        return this.Ntime;
+    }
+    public void setNtime(String Ntime) {
+        this.Ntime = Ntime;
+    }
+    public String getNCreateTime() {
+        return this.NCreateTime;
+    }
+    public void setNCreateTime(String NCreateTime) {
+        this.NCreateTime = NCreateTime;
+    }
     public String getNAddrName() {
         return this.NAddrName;
     }
-
     public void setNAddrName(String NAddrName) {
         this.NAddrName = NAddrName;
     }
 
 
+
+
+    
 }

@@ -1,5 +1,7 @@
 package com.fangzuo.assist.UI.Activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -7,11 +9,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -36,6 +41,7 @@ import com.fangzuo.assist.UI.Fragment.RiliFragment;
 import com.fangzuo.assist.Utils.Asynchttp;
 import com.fangzuo.assist.Utils.EventBusInfoCode;
 import com.fangzuo.assist.Utils.EventBusUtil;
+import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.assist.Utils.LocDataUtil;
 import com.fangzuo.assist.Utils.UpgradeUtil.AppStatisticalUtil;
@@ -46,19 +52,22 @@ import com.fangzuo.greendao.gen.DaoSession;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.loopj.android.http.AsyncHttpClient;
+import com.orhanobut.hawk.Hawk;
 
 import org.greenrobot.greendao.async.AsyncSession;
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindColor;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MenuActivity extends BaseActivity {
+public class MenuActivity extends BaseActivity  implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.tv_user)
     TextView tvUser;
@@ -112,6 +121,7 @@ public class MenuActivity extends BaseActivity {
         buyBeanDao = daoSession.getBuyBeanDao();
         initBar();
         initFragments();
+//        getPermisssion();
     }
 
     @Override
@@ -141,6 +151,12 @@ public class MenuActivity extends BaseActivity {
 //                EventBusUtil.sendEvent(new ClassEvent(EventBusInfoCode.Upload_Error,Msg));
             }
         });
+
+//        TelephonyManager tm = (TelephonyManager) this.getSystemService(Context.TELEPHONY_SERVICE);
+//        @SuppressLint({"HardwareIds", "MissingPermission"}) String deviceId = tm.getDeviceId();
+//        Lg.e("得到用户ID",deviceId);
+//        Hawk.put(Info.User_IMEI,deviceId);
+
 
     }
 
@@ -239,7 +255,7 @@ public class MenuActivity extends BaseActivity {
     AlertDialog alertDialog;
     private void selectAdd(){
         AlertDialog.Builder ab = new AlertDialog.Builder(mContext);
-        ab.setTitle("请选择项目");
+        ab.setTitle("请选择标签");
         View v = LayoutInflater.from(mContext).inflate(R.layout.menu_add, null);
         EasyRecyclerView lv = v.findViewById(R.id.ry_list);
         final BaseDataRyAdapter adapter = new BaseDataRyAdapter(mContext);
@@ -257,7 +273,7 @@ public class MenuActivity extends BaseActivity {
         });
 //        ab.setMessage(msg);
         ab.setPositiveButton("返回",null);
-        ab.setNeutralButton("添加项目", new DialogInterface.OnClickListener() {
+        ab.setNeutralButton("添加标签", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 insertBuyBean();
@@ -283,7 +299,7 @@ public class MenuActivity extends BaseActivity {
                     alertDialog.dismiss();
                     getAlertDialog.dismiss();
                 }else{
-                    LoadingUtil.showAlter(mContext,"该项目已存在");
+                    LoadingUtil.showAlter(mContext,"该标签已存在");
                 }
             }
         });
@@ -329,4 +345,35 @@ public class MenuActivity extends BaseActivity {
 
         }
     }
+
+    //权限获取-------------------------------------------------------------
+    private void getPermisssion() {
+        String[] perm = {
+//                Manifest.permission.CAMERA,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        if (!EasyPermissions.hasPermissions(mContext, perm)) {
+            EasyPermissions.requestPermissions(this, "必要的权限", 0, perm);
+        }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        //把申请权限的回调交由EasyPermissions处理
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, List<String> perms) {
+        Log.i("permisssion", "获取成功的权限" + perms);
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, List<String> perms) {
+        Log.i("permisssion", "获取失败的权限" + perms);
+    }
+
 }

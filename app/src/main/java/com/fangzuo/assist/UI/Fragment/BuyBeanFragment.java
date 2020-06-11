@@ -137,7 +137,7 @@ public class BuyBeanFragment extends BaseFragment {
     private void delBuyBean(int position){
         BuyBean buyBean = adapter.getAllData().get(position);
         if (LocDataUtil.checkNoteBean(buyBean.FName)>0){
-            Toast.showText(mContext,"该种类存在数据，不允许深处");
+            Toast.showText(mContext,"该种类存在数据，不允许删除");
             return;
         }
         buyBeanDao.deleteInTx(buyBean);

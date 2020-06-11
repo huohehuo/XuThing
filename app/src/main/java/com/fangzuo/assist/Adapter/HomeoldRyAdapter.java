@@ -55,20 +55,20 @@ public class HomeoldRyAdapter extends RecyclerArrayAdapter<NoteBean> {
         @Override
         public void setData(NoteBean data) {
             super.setData(data);
-            name.setText(data.NTitle);
-            time.setText(data.Ntime);
-            if (null==data.NDetail || "".equals(data.NDetail)){
-                detail.setVisibility(View.GONE);
-            }else{
-                detail.setText(data.NDetail);
-            }
-            Glide.with(getContext())
-                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
-//                    .load(R.drawable.happy)
-//                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
-                    .into(icon);
+//            name.setText(data.NTitle);
+//            time.setText(data.Ntime);
+//            if (null==data.NDetail || "".equals(data.NDetail)){
+//                detail.setVisibility(View.GONE);
+//            }else{
+//                detail.setText(data.NDetail);
+//            }
+//            Glide.with(getContext())
+//                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
+////                    .load(R.drawable.happy)
+////                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
+//                    .skipMemoryCache(true)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
+//                    .into(icon);
         }
     }
 
@@ -92,21 +92,21 @@ public class HomeoldRyAdapter extends RecyclerArrayAdapter<NoteBean> {
         @Override
         public void setData(NoteBean data) {
             super.setData(data);
-            name.setText(data.NTitle);
+//            name.setText(data.NTitle);
             time.setText(data.Ntime);
             time_left.setText(data.Ntime);
-            if (null==data.NDetail || "".equals(data.NDetail)){
-                detail.setVisibility(View.GONE);
-            }else{
-                detail.setText(data.NDetail);
-            }
-            Glide.with(getContext())
-                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
-//                    .load(R.drawable.happy)
-//                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
-                    .skipMemoryCache(true)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
-                    .into(icon);
+//            if (null==data.NDetail || "".equals(data.NDetail)){
+//                detail.setVisibility(View.GONE);
+//            }else{
+//                detail.setText(data.NDetail);
+//            }
+//            Glide.with(getContext())
+//                    .load(CommonUtil.getMoodByType(data.NMoodLocInt))
+////                    .load(R.drawable.happy)
+////                    .load(CommonUtil.getPicServerUrl()+data.getPicName())
+//                    .skipMemoryCache(true)
+//                    .diskCacheStrategy(DiskCacheStrategy.NONE)//关闭Glide的硬盘缓存机制
+//                    .into(icon);
         }
     }
 

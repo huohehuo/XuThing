@@ -26,6 +26,8 @@ public class BuyBean {
         FID = fid;
     }
 
+
+
     @Generated(hash = 481464502)
     public BuyBean(Long id, String FID, String FName, String FCreateData,
             String FIsCloud, String FUseNum) {

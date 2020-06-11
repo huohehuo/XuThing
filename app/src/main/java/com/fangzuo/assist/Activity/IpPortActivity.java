@@ -84,7 +84,7 @@ public class IpPortActivity extends BaseActivity {
             tvEndtime.setText("获取时间失效" + "   用户码：" + Hawk.get(Config.PDA_IMIE, "获取失败")+"  注册码："+Hawk.get(Config.PDA_RegisterCode,"获取失败"));
         }
     }
-
+    //pulbic private
     @Override
     protected void initListener() {
         spPda.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

@@ -69,7 +69,7 @@ public class RService {
         toSubscribe(request.actionIO(io, getParams(data)), mySubscribe);
     }
     //执行接口
-    public void doIOActionPost(String io, WebResponse data, MySubscribe<CommonResponse> mySubscribe) {
+    public void doIOActionPost(String io, WebResponse data, LinSubscribe<WebResponse> mySubscribe) {
         toSubscribe(request.actionPostIO(io, data), mySubscribe);
     }
 

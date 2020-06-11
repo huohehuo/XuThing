@@ -14,7 +14,7 @@ public class BuyAtBean {
     public String FID;//名称
     public String FName;//数量
     public String FNum;//数量
-    public String FAddrID;
+    public String FAddrID;//
     public String FAddrName;
     public String FBuyID;
     public String FBuyName;

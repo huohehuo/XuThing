@@ -150,16 +150,16 @@ public class AddNoteOldActivity extends BaseActivity implements EasyPermissions.
 
     private void saveNote(){
         noteBean = new NoteBean();
-        noteBean.NTitle= edName.getText().toString();
-        noteBean.NDetail= edDetail.getText().toString();
-        noteBean.NBuyName= spBuyUIDlg.getDataName();
-        noteBean.NAddrName= spAddrUIDlg.getDataName();
-        noteBean.Ntime = tvTime.getText().toString();
-        noteBean.NCreateTime = CommonUtil.getTimeLong(true);
-        noteBean.NMoodLocInt = moodInt;
-        noteBeanDao.insert(noteBean);
-        Toast.showText(mContext, "添加成功");
-        VibratorUtil.Vibrate(mContext, 250);
+//        noteBean.NTitle= edName.getText().toString();
+//        noteBean.NDetail= edDetail.getText().toString();
+//        noteBean.NBuyName= spBuyUIDlg.getDataName();
+//        noteBean.NAddrName= spAddrUIDlg.getDataName();
+//        noteBean.Ntime = tvTime.getText().toString();
+//        noteBean.NCreateTime = CommonUtil.getTimeLong(true);
+//        noteBean.NMoodLocInt = moodInt;
+//        noteBeanDao.insert(noteBean);
+//        Toast.showText(mContext, "添加成功");
+//        VibratorUtil.Vibrate(mContext, 250);
     }
 
 

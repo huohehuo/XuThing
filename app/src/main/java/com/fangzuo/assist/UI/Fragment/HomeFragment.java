@@ -22,6 +22,8 @@ import com.fangzuo.assist.Adapter.GridViewAdapter;
 import com.fangzuo.assist.Adapter.HomeRyAdapter;
 import com.fangzuo.assist.Beans.EventBusEvent.ClassEvent;
 import com.fangzuo.assist.Beans.SettingList;
+import com.fangzuo.assist.Beans.TestBean;
+import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.Dao.NoteBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.UI.Activity.AddNoteActivity;
@@ -35,9 +37,13 @@ import com.fangzuo.assist.Utils.Info;
 import com.fangzuo.assist.Utils.Lg;
 import com.fangzuo.greendao.gen.BuyAtBeanDao;
 import com.fangzuo.greendao.gen.NoteBeanDao;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.jude.easyrecyclerview.EasyRecyclerView;
 import com.jude.easyrecyclerview.adapter.RecyclerArrayAdapter;
 import com.orhanobut.hawk.Hawk;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -146,6 +152,26 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     protected void initListener() {
+        TestBean buyBean = new TestBean();
+        JsonObject object =new JsonObject();
+        JSONObject objects =new JSONObject();
+
+
+        Lg.e("实体1",buyBean);
+        Lg.e("实体1",buyBean.FName);
+        Lg.e("实体1","FName".equals(buyBean.FName));
+        Lg.e("实体2",buyBean.getClass().getSimpleName());
+        Lg.e("实体3",buyBean.hashCode());
+
+        String string = "FName,FNumber,FUnit,FDate,FCreate";
+        String[] strings = string.split(",");
+        for (int i = 0; i < strings.length; i++) {
+            Lg.e("数组字段：",strings[i]);
+            if ("FName".equals(strings[i])){
+//                buyBean.FName =
+            }
+        }
+
 
     }
     @Override

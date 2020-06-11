@@ -66,9 +66,9 @@ public class ShowNoteActivity extends BaseActivity {
         if (null == noteBean) {
             LoadingUtil.showAlter(mContext, "本地无法找到该记录", "");
         } else {
-            edName.setText(noteBean.NTitle);
+//            edName.setText(noteBean.NTitle);
             tvTime.setText(noteBean.Ntime);
-            edDetail.setText(noteBean.NDetail);
+//            edDetail.setText(noteBean.NDetail);
             tvTitle.setText(noteBean.NBuyName);
 //            spBuyUIDlg.setAutoSelection("",noteBean.NBuyName,false);
             spAddrUIDlg.setAutoSelection("",noteBean.NAddrName,false);
@@ -117,8 +117,8 @@ public class ShowNoteActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.iv_add:
 //                if (!"".equals(edName.getText().toString())){
-                    noteBean.NTitle = edName.getText().toString();
-                    noteBean.NDetail = edDetail.getText().toString();
+//                    noteBean.NTitle = edName.getText().toString();
+//                    noteBean.NDetail = edDetail.getText().toString();
                     noteBean.Ntime = tvTime.getText().toString();
 //                    noteBean.NBuyName = spBuyUIDlg.getDataName();
                     noteBean.NAddrName = spAddrUIDlg.getDataName();

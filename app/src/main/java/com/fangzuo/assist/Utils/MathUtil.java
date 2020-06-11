@@ -53,6 +53,7 @@ public class MathUtil {
     }
     //防止强转时崩溃操作
     public static int toInt(String string) {
+        Lg.e("强转Int",string);
         if (null == string) {
             return 0;
         } else if (string.equals("")) {

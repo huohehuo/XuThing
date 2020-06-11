@@ -31,6 +31,8 @@ import com.fangzuo.assist.Dao.BuyAtBean;
 import com.fangzuo.assist.Dao.BuyBean;
 import com.fangzuo.assist.R;
 import com.fangzuo.assist.RxSerivce.MySubscribe;
+import com.fangzuo.assist.UI.Activity.AboutActivity;
+import com.fangzuo.assist.UI.Activity.BackUpActivity;
 import com.fangzuo.assist.UI.Activity.BaseDataActivity;
 import com.fangzuo.assist.UI.Activity.ScanTestActivity;
 import com.fangzuo.assist.Utils.GreenDaoManager;
@@ -57,6 +59,8 @@ public class OwnFragment extends BaseFragment {
     ImageView ivBook;
     @BindView(R.id.tv_num)
     TextView tvNum;
+    @BindView(R.id.tv_about)
+    TextView tvAbout;
     @BindView(R.id.cb_change_view)
     CheckBox cbChangeView;
     @BindView(R.id.tv_mood)
@@ -291,7 +295,7 @@ public class OwnFragment extends BaseFragment {
         super.onDestroyView();
     }
 
-    @OnClick({R.id.iv_book, R.id.tv_num,R.id.ll_data, R.id.ll_cloud, R.id.ll_lv})
+    @OnClick({R.id.iv_book, R.id.tv_num,R.id.ll_data, R.id.ll_cloud, R.id.ll_lv, R.id.tv_about})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_book:
@@ -304,44 +308,17 @@ public class OwnFragment extends BaseFragment {
                 BaseDataActivity.start(mContext);
                 break;
             case R.id.ll_cloud:
-                pushData();
+                BackUpActivity.start(mContext);
 //                ScanTestActivity.start(mContext);
                 break;
             case R.id.ll_lv:
                 LoadingUtil.showDialog(mContext,"正在获取...");
                showLvDlg();
                 break;
+            case R.id.tv_about:
+                AboutActivity.start(mContext);
+                break;
         }
-    }
-    private void pushData(){
-        LoadingUtil.showDialog(mContext,"正在上传....");
-        WebResponse webResponse = new WebResponse();
-        ArrayList<BuyBean> buyBeans = new ArrayList<>();
-        ArrayList<BuyAtBean> buyAtBeans = new ArrayList<>();
-        ArrayList<AddrBean> addrBeans = new ArrayList<>();
-        buyBeans.addAll(daoSession.getBuyBeanDao().loadAll());
-        buyAtBeans.addAll(daoSession.getBuyAtBeanDao().loadAll());
-        addrBeans.addAll(daoSession.getAddrBeanDao().loadAll());
-        webResponse.buyBeans = buyBeans;
-        webResponse.buyAtBeans = buyAtBeans;
-        webResponse.addrBeans = addrBeans;
-        webResponse.size = buyBeans.size()+buyAtBeans.size()+addrBeans.size();
-        Lg.e("上传",webResponse);
-        App.getRService().doIOActionPost("BackUpBuyBean", webResponse, new MySubscribe<CommonResponse>() {
-            @Override
-            public void onNext(CommonResponse commonResponse) {
-                super.onNext(commonResponse);
-                LoadingUtil.dismiss();
-                LoadingUtil.showAlter(mContext,"成功");
-            }
-
-            @Override
-            public void onError(Throwable e) {
-                super.onError(e);
-                LoadingUtil.dismiss();
-                LoadingUtil.showAlter(mContext,"失败");
-            }
-        });
     }
 
 

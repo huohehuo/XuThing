@@ -78,7 +78,7 @@ public class WelcomeActivity extends AppCompatActivity implements EasyPermission
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_welcome);
         ButterKnife.bind(this);
-        getPermisssion();
+//        getPermisssion();
         // 避免从桌面启动程序后，会重新实例化入口类的activity----------------------------
         //也就是说Home键再点app图标时，不会重新从登陆界面进
         if (!this.isTaskRoot()) {
@@ -188,9 +188,9 @@ public class WelcomeActivity extends AppCompatActivity implements EasyPermission
     //权限获取-------------------------------------------------------------
     private void getPermisssion() {
         String[] perm = {
-                Manifest.permission.CAMERA,
+//                Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.READ_PHONE_STATE,
+//                Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.ACCESS_COARSE_LOCATION,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE};
         if (!EasyPermissions.hasPermissions(WelcomeActivity.this, perm)) {

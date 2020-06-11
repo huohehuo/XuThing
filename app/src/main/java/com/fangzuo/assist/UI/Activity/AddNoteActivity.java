@@ -158,10 +158,8 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         List<NoteBean> list = noteBeanDao.queryBuilder().where(NoteBeanDao.Properties.NBuyName.eq(buyBeanName)).build().list();
         if (list.size()<=0){
             noteBean = new NoteBean();
-//        noteBean.NTitle= edName.getText().toString();
-//            noteBean.NDetail= edDetail.getText().toString();
+            noteBean.FID = CommonUtil.getTimeLong(false);
             noteBean.NBuyName= buyBeanName;
-//            noteBean.NAddrName= spAddrUIDlg.getDataName();
             noteBean.Ntime = CommonUtil.getTimeLong(true);
             noteBean.NCreateTime = CommonUtil.getTimeLong(true);
             noteBeanDao.insert(noteBean);
@@ -175,9 +173,10 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
         buyAtBean.FNum = num;
         buyAtBean.setBuyBean(buyBean);
 //        buyAtBean.setAddrBean(spAddrUIDlg.getData());
-        buyAtBean.FAddrName = tvNum.getNote();
+        buyAtBean.FAddrName = tvNum.getNote();//历史只和文本有联系，
         buyAtBean.FCreateData = CommonUtil.getTimeLong(true);
         buyAtBeanDao.insert(buyAtBean);
+        //添加历史
         LocDataUtil.addAddrBean(tvNum.getNote());
         VibratorUtil.Vibrate(mContext, 200);
         tvNum.clearNum();

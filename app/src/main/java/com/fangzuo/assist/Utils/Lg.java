@@ -11,6 +11,8 @@ public class Lg {
         if (App.isDebug){
             if (string!=null){
                 Log.e("TEST","\n"+string);
+            }else{
+                Log.e("TEST","对象为null");
             }
         }
     }
@@ -18,6 +20,8 @@ public class Lg {
         if (App.isDebug){
             if (string!=null){
                 Log.e(tag,"\n"+string);
+            }else{
+                Log.e(tag,"显示对象为null");
             }
         }
     }

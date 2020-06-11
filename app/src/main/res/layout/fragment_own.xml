@@ -132,7 +132,7 @@
             android:layout_width="0dp"
             android:layout_weight="5"
             android:layout_height="match_parent"
-            android:text="云端数据"/>
+            android:text="数据管理"/>
         <android.support.v7.widget.AppCompatTextView
             android:autoSizeTextType="uniform"
             android:autoSizeMaxTextSize="20dp"
@@ -145,7 +145,19 @@
     </LinearLayout>
 
     <include layout="@layout/line_heng"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"/>
+    <TextView
+        android:id="@+id/tv_about"
+        android:layout_marginBottom="12dp"
+        android:text="关于软件"
+        android:textSize="@dimen/sp_8"
+        android:textColor="@color/gray"
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 
 
