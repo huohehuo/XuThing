@@ -170,6 +170,7 @@ public class AddNoteActivity extends BaseActivity implements EasyPermissions.Per
             noteBeanDao.update(bean);
         }
         BuyAtBean buyAtBean = new BuyAtBean();
+        buyAtBean.FID = CommonUtil.getTimeLong(false);
         buyAtBean.FNum = num;
         buyAtBean.setBuyBean(buyBean);
 //        buyAtBean.setAddrBean(spAddrUIDlg.getData());

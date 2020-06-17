@@ -255,7 +255,7 @@ public class BackUpActivity extends BaseActivity {
             }
         }
         for (int i = 0; i < webResponse.buyAtBeans.size(); i++) {//当本地没有home页面数据时
-            if (buyAtBeanDao.queryBuilder().where(BuyAtBeanDao.Properties.FBuyID.eq(webResponse.buyAtBeans.get(i).FBuyID)).count()<=0){
+            if (buyAtBeanDao.queryBuilder().where(BuyAtBeanDao.Properties.FID.eq(webResponse.buyAtBeans.get(i).FID)).count()<=0){
                 buyAtBeanDao.insertInTx(webResponse.buyAtBeans.get(i));
             }
         }
